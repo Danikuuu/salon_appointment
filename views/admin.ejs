@@ -246,6 +246,104 @@
         <h2>Manage Services</h2>
         <!-- Service management content goes here -->
     </div>
+    <style>
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+        
+        thead {
+            background-color: #8B4513; /* SaddleBrown */
+            color: #FFFFFF;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #D2B48C; /* Tan */
+        }
+        
+        tbody tr:nth-child(even) {
+            background-color: #F5F5DC; /* Beige */
+        }
+        
+        tbody tr:hover {
+            background-color: #DEB887; /* Burlywood */
+        }
+        
+        button {
+            background-color: #A0522D; /* Sienna */
+            color: #FFFFFF;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            background-color: #8B4513; /* SaddleBrown */
+        }
+        
+        /* Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .modal-content {
+            background-color: #FFF8DC; /* Cornsilk */
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #8B4513;
+            width: 50%;
+            border-radius: 8px;
+        }
+        
+        .modal-content h2 {
+            color: #8B4513;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .modal-content label {
+            display: block;
+            margin: 10px 0 5px;
+            color: #8B4513;
+            font-weight: bold;
+        }
+        
+        .modal-content input,
+        .modal-content textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #D2B48C;
+            border-radius: 4px;
+        }
+        
+        .close {
+            color: #8B4513;
+            font-size: 28px;
+            font-weight: bold;
+            float: right;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: #A0522D;
+        }
+        
+                    </style>
     <div id="appointments" class="section" style="display:none;">
         <h2>Your Appointments</h2>
         <div>
