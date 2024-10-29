@@ -1,0 +1,3686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>MA - BROWN</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Times New Roman';
+        }
+        .service-home{
+            background-color: black;
+        }
+        .service-home img{
+            width: 100%;
+            height: 450px;
+            opacity: 0.5;
+            object-fit: cover;
+        }
+        .service-home h1{
+            position: absolute;
+            font-size: 50px;
+            color: white;
+            text-align: center;
+            margin-left: 500px;
+            margin-top: -250px;
+        }
+        /* Search Bar Styles */
+        .service-search {
+            position: absolute; 
+            top: 270px; 
+            left: 580px;
+            display: flex;
+            align-items: center;
+        }
+
+        .service-search input[type="text"] {
+            padding: 8px;
+            background-color: transparent;
+            padding-right: 150px;
+            border: 2px solid #bdac8e;
+            color: #bdac8e;
+            border-right: none;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+            font-size: 14px;
+        }
+
+        .service-search button[type="submit"] {
+            padding: 8px 12px;
+            border: none;
+            background-color: #bdac8e;
+            color: white;
+            margin-top: 0px;
+            border-radius: 4px;
+            margin-left: -66px;
+            cursor: pointer;
+        }
+
+        .service-search button:hover[type="submit"] {
+            background-color: #dfccbb;
+            color: white;
+        }
+
+        /* SERVICE CATEGORY */
+        .category-container {
+            max-width: 1400px;
+            margin: 50px auto;
+            text-align: center;
+        }
+
+        .service-pick h1 {
+            font-size: 36px;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .category-inline {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .category-item {
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            flex: 0 0 8%;
+        }
+
+        .category-item:hover {
+            transform: scale(1.05);
+        }
+
+        .category-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .category-item h2 {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #333;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .category-item img {
+                width: 80px;
+                height: 80px;
+            }
+
+            .category-item h2 {
+                font-size: 14px;
+            }
+
+            .category-inline {
+                justify-content: center;
+            }
+        }
+
+        /* HAND */
+        .hand{
+            background-image: linear-gradient(to bottom, #e8ded4, #ded1c2, #d4c4b1, #c9b89f, #bdac8e);
+        }
+        .hand .background{
+            position: absolute;
+            width: 750px;
+            height: 650px;
+        }
+        .hand .carousel {
+            width: 100%;
+            max-width: 770px;
+            border-radius: none;
+            box-shadow: none;
+            overflow: hidden;
+            margin-left: 750px;
+            background-color: #fff;
+        }
+
+        .hand .carousel-inner img {
+            border-radius: none;
+            height: 650px; 
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .hand .carousel-control-prev-icon,
+        .hand .carousel-control-next-icon {
+            background-color: transparent;
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .hand .carousel-control-prev,
+        .hand .carousel-control-next {
+            width: 5%;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .hand .carousel-control-prev:hover,
+        .hand .carousel-control-next:hover {
+            opacity: 1;
+        }
+
+        .hand .carousel-inner .carousel-item img:hover {
+            transform: scale(1.05);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .hand .carousel-item img.d-block {
+            width: 100%;
+            height: 650px;
+            object-fit: cover;
+        }
+
+        .hand .carousel-item img.img1 {
+            position: absolute;
+            top: 70px; 
+            left: 10%;
+            transform: none;
+            width: 40%;
+            height: 80%;
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); 
+        }
+
+        .hand .carousel-item h2{
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 200px;
+            font-size: 50px;
+        }
+
+        .hand .carousel-item .gel1{
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 300px;
+            font-size: 50px;
+        }
+
+        .hand .carousel-item .gel2{
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 400px;
+            font-size: 50px;
+        }
+
+        .hand .carousel-item .p1 {
+            position: absolute;
+            bottom: 175px; 
+            left: 60%;
+            transform: translateX(-50%);
+            color: black;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 300px;
+        }
+
+        .hand .carousel-item p {
+            position: absolute;
+            bottom: 200px; 
+            left: 60%;
+            transform: translateX(-50%);
+            color: black;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 300px;
+        }
+
+        .hand .carousel-item .btn {
+            position: absolute;
+            bottom: 90px;
+            left: 65%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: transparent;
+            color: black;
+            border: 2px solid white;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .hand .carousel-item .btn:hover {
+            background-color: white; 
+            color: black;
+        }
+
+        .hand h1{
+            position: absolute;
+            max-width: 500px;
+            text-align: left;
+            font-size: 70px;
+            font-weight: bolder;
+            margin-top: 150px;
+            margin-left: 100px;
+        }
+
+        .hand p{
+            position: absolute;
+            max-width: 550px;
+            text-align: justify;
+            margin-left: 100px;
+            margin-top: 320px;
+        }
+
+        /* FOOT */
+        .foot{
+            background-color: white;
+        }
+        .foot .background{
+            position: absolute;
+            width: 750px;
+            height: 650px;
+        }
+        .foot .carousel {
+            width: 100%;
+            max-width: 770px;
+            border-radius: none;
+            box-shadow: none;
+            overflow: hidden;
+            margin-left: 0px;
+            background-color: #fff;
+        }
+
+        .foot .carousel-inner img {
+            border-radius: none;
+            height: 650px; 
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .foot .carousel-control-prev-icon,
+        .foot .carousel-control-next-icon {
+            background-color: black;
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .foot .carousel-control-prev,
+        .foot .carousel-control-next {
+            width: 5%;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .foot .carousel-control-prev:hover,
+        .foot .carousel-control-next:hover {
+            opacity: 1;
+        }
+
+        .foot .carousel-inner .carousel-item img:hover {
+            transform: scale(1.05);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .foot .carousel-item img.d-block {
+            width: 100%;
+            height: 650px;
+            object-fit: cover;
+        }
+
+        .foot .carousel-item img.img1 {
+            position: absolute;
+            top: 70px; 
+            left: 10%;
+            transform: none;
+            width: 40%;
+            height: 80%;
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); 
+        }
+
+        .foot .carousel-item h2{
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 300px;
+            font-size: 50px;
+        }
+
+        .foot .carousel-item .gel{
+            position: absolute;
+            font-weight: bold;
+            margin-top: -480px;
+            margin-left: 56%;
+            max-width: 400px;
+            font-size: 50px;
+        }
+
+        .foot .carousel-item p {
+            position: absolute;
+            bottom: 200px; 
+            left: -43%;
+            transform: translateX(-50%);
+            color: black;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 300px;
+        }
+
+        .foot .carousel-item .btn {
+            position: absolute;
+            bottom: 90px;
+            left: 65%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: transparent;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .foot .carousel-item .btn:hover {
+            background-color: black; 
+            color: white;
+        }
+
+        .foot h1{
+            position: absolute;
+            max-width: 500px;
+            text-align: left;
+            font-size: 70px;
+            font-weight: bolder;
+            margin-top: 150px;
+            margin-left: 900px;
+        }
+
+        .foot p{
+            position: absolute;
+            max-width: 550px;
+            text-align: justify;
+            margin-left: 900px;
+            margin-top: 320px;
+        }
+
+        /* BODY */
+        .body {
+            background-image: linear-gradient(to bottom, #e8ded4, #ded1c2, #d4c4b1, #c9b89f, #bdac8e);
+        }
+
+        .body .background {
+            position: absolute;
+            width: 750px;
+            height: 650px;
+        }
+
+        .body .carousel {
+            width: 100%;
+            max-width: 770px;
+            border-radius: none;
+            box-shadow: none;
+            overflow: hidden;
+            margin-left: 750px;
+            background-color: #fff;
+        }
+
+        .body .carousel-inner img {
+            border-radius: none;
+            height: 650px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .body .carousel-control-prev-icon,
+        .body .carousel-control-next-icon {
+            background-color: transparent;
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .body .carousel-control-prev,
+        .body .carousel-control-next {
+            width: 5%;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .body .carousel-control-prev:hover,
+        .body .carousel-control-next:hover {
+            opacity: 1;
+        }
+
+        .body .carousel-inner .carousel-item img:hover {
+            transform: scale(1.05);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .body .carousel-item img.d-block {
+            width: 100%;
+            height: 650px;
+            object-fit: cover;
+        }
+
+        .body .carousel-item img.img1 {
+            position: absolute;
+            top: 70px;
+            left: 10%;
+            transform: none;
+            width: 40%;
+            height: 80%;
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .body .carousel-item h2 {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 300px;
+            font-size: 50px;
+        }
+
+        .body .carousel-item .gel1 {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 300px;
+            font-size: 50px;
+        }
+
+        .body .carousel-item .gel2 {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 400px;
+            font-size: 50px;
+        }
+
+        .body .carousel-item .p1 {
+            position: absolute;
+            bottom: 175px;
+            left: 60%;
+            transform: translateX(-50%);
+            color: black;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 300px;
+        }
+
+        .body .carousel-item p {
+            position: absolute;
+            bottom: 200px;
+            left: 60%;
+            transform: translateX(-50%);
+            color: black;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 300px;
+        }
+
+        .body .carousel-item .btn {
+            position: absolute;
+            bottom: 90px;
+            left: 65%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: transparent;
+            color: black;
+            border: 2px solid white;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .body .carousel-item .btn:hover {
+            background-color: white;
+            color: black;
+        }
+
+        .body h1 {
+            position: absolute;
+            max-width: 500px;
+            text-align: left;
+            font-size: 70px;
+            font-weight: bolder;
+            margin-top: 150px;
+            margin-left: 100px;
+        }
+
+        .body p {
+            position: absolute;
+            max-width: 550px;
+            text-align: justify;
+            margin-left: 100px;
+            margin-top: 320px;
+        }
+
+        /* SHAPE */
+        .shape {
+            background-color: white;
+        }
+
+        .shape .background {
+            position: absolute;
+            width: 750px;
+            height: 650px;
+        }
+
+        .shape .carousel {
+            width: 100%;
+            max-width: 770px;
+            border-radius: none;
+            box-shadow: none;
+            overflow: hidden;
+            margin-left: 0px;
+            background-color: #fff;
+        }
+
+        .shape .carousel-inner img {
+            border-radius: none;
+            height: 650px; 
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .shape .carousel-control-prev-icon,
+        .shape .carousel-control-next-icon {
+            background-color: black;
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .shape .carousel-control-prev,
+        .shape .carousel-control-next {
+            width: 5%;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .shape .carousel-control-prev:hover,
+        .shape .carousel-control-next:hover {
+            opacity: 1;
+        }
+
+        .shape .carousel-inner .carousel-item img:hover {
+            transform: scale(1.05);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .shape .carousel-item img.d-block {
+            width: 100%;
+            height: 650px;
+            object-fit: cover;
+        }
+
+        .shape .carousel-item img.img1 {
+            position: absolute;
+            top: 70px; 
+            left: 10%;
+            transform: none;
+            width: 40%;
+            height: 80%;
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); 
+        }
+
+        .shape .carousel-item h2 {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 400px;
+            font-size: 45px;
+        }
+
+        .shape .carousel-item .gel {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -480px;
+            margin-left: 56%;
+            max-width: 400px;
+            font-size: 50px;
+        }
+
+        .shape .carousel-item p {
+            position: absolute;
+            bottom: 180px; 
+            left: -43%;
+            transform: translateX(-50%);
+            color: black;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 300px;
+        }
+
+        .shape .carousel-item .btn {
+            position: absolute;
+            bottom: 90px;
+            left: 65%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: transparent;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .shape .carousel-item .btn:hover {
+            background-color: black; 
+            color: white;
+        }
+
+        .shape h1 {
+            position: absolute;
+            max-width: 600px;
+            text-align: left;
+            font-size: 65px;
+            font-weight: bolder;
+            margin-top: 150px;
+            margin-left: 900px;
+        }
+
+        .shape p {
+            position: absolute;
+            max-width: 550px;
+            text-align: justify;
+            margin-left: 900px;
+            margin-top: 320px;
+        }
+
+        /* MAKE-UP */
+        .makeup {
+            background-image: linear-gradient(to bottom, #e8ded4, #ded1c2, #d4c4b1, #c9b89f, #bdac8e);
+        }
+
+        .makeup .background {
+            position: absolute;
+            width: 750px;
+            height: 650px;
+        }
+
+        .makeup .carousel {
+            width: 100%;
+            max-width: 770px;
+            border-radius: none;
+            box-shadow: none;
+            overflow: hidden;
+            margin-left: 750px;
+            background-color: #fff;
+        }
+
+        .makeup .carousel-inner img {
+            border-radius: none;
+            height: 650px; 
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .makeup .carousel-control-prev-icon,
+        .makeup .carousel-control-next-icon {
+            background-color: transparent;
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .makeup .carousel-control-prev,
+        .makeup .carousel-control-next {
+            width: 5%;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .makeup .carousel-control-prev:hover,
+        .makeup .carousel-control-next:hover {
+            opacity: 1;
+        }
+
+        .makeup .carousel-inner .carousel-item img:hover {
+            transform: scale(1.05);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .makeup .carousel-item img.d-block {
+            width: 100%;
+            height: 650px;
+            object-fit: cover;
+        }
+
+        .makeup .carousel-item img.img1 {
+            position: absolute;
+            top: 70px; 
+            left: 10%;
+            transform: none;
+            width: 40%;
+            height: 80%;
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); 
+        }
+
+        .makeup .carousel-item h2 {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -470px;
+            margin-left: 56%;
+            max-width: 300px;
+            font-size: 50px;
+        }
+
+        .makeup .carousel-item .gel1 {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 300px;
+            font-size: 50px;
+        }
+
+        .makeup .carousel-item .gel2 {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 400px;
+            font-size: 50px;
+        }
+
+        .makeup .carousel-item .p1 {
+            position: absolute;
+            bottom: 175px; 
+            left: 60%;
+            transform: translateX(-50%);
+            color: black;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 300px;
+        }
+
+        .makeup .carousel-item p {
+            position: absolute;
+            bottom: 200px; 
+            left: 60%;
+            transform: translateX(-50%);
+            color: black;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 300px;
+        }
+
+        .makeup .carousel-item .btn {
+            position: absolute;
+            bottom: 90px;
+            left: 65%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: transparent;
+            color: black;
+            border: 2px solid white;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .makeup .carousel-item .btn:hover {
+            background-color: white; 
+            color: black;
+        }
+
+        .makeup h1 {
+            position: absolute;
+            max-width: 500px;
+            text-align: left;
+            font-size: 70px;
+            font-weight: bolder;
+            margin-top: 150px;
+            margin-left: 100px;
+        }
+
+        .makeup p {
+            position: absolute;
+            max-width: 550px;
+            text-align: justify;
+            margin-left: 100px;
+            margin-top: 320px;
+        }
+
+        /* HAIR */
+
+        .hair {
+            background-color: white;
+        }
+        .hair .background {
+            position: absolute;
+            width: 750px;
+            height: 650px;
+        }
+        .hair .carousel {
+            width: 100%;
+            max-width: 770px;
+            border-radius: none;
+            box-shadow: none;
+            overflow: hidden;
+            margin-left: 0px;
+            background-color: #fff;
+        }
+
+        .hair .carousel-inner img {
+            border-radius: none;
+            height: 650px; 
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .hair .carousel-control-prev-icon,
+        .hair .carousel-control-next-icon {
+            background-color: black;
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .hair .carousel-control-prev,
+        .hair .carousel-control-next {
+            width: 5%;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .hair .carousel-control-prev:hover,
+        .hair .carousel-control-next:hover {
+            opacity: 1;
+        }
+
+        .hair .carousel-inner .carousel-item img:hover {
+            transform: scale(1.05);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .hair .carousel-item img.d-block {
+            width: 100%;
+            height: 650px;
+            object-fit: cover;
+        }
+
+        .hair .carousel-item img.img1 {
+            position: absolute;
+            top: 70px; 
+            left: 10%;
+            transform: none;
+            width: 40%;
+            height: 80%;
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); 
+        }
+
+        .hair .carousel-item h2 {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 300px;
+            font-size: 50px;
+        }
+
+        .hair .carousel-item .gel {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 400px;
+            font-size: 50px;
+        }
+
+        .hair .carousel-item p {
+            position: absolute;
+            bottom: 200px; 
+            left: -43%;
+            transform: translateX(-50%);
+            color: black;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 300px;
+        }
+
+        .hair .carousel-item .btn {
+            position: absolute;
+            bottom: 90px;
+            left: 65%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: transparent;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .hair .carousel-item .btn:hover {
+            background-color: black; 
+            color: white;
+        }
+
+        .hair h1 {
+            position: absolute;
+            max-width: 500px;
+            text-align: left;
+            font-size: 70px;
+            font-weight: bolder;
+            margin-top: 150px;
+            margin-left: 900px;
+        }
+
+        .hair p {
+            position: absolute;
+            max-width: 550px;
+            text-align: justify;
+            margin-left: 900px;
+            margin-top: 320px;
+        }
+
+        /* FACE */
+        .face {
+            background-image: linear-gradient(to bottom, #e8ded4, #ded1c2, #d4c4b1, #c9b89f, #bdac8e);
+        }
+
+        .face .background {
+            position: absolute;
+            width: 750px;
+            height: 650px;
+        }
+
+        .face .carousel {
+            width: 100%;
+            max-width: 770px;
+            border-radius: none;
+            box-shadow: none;
+            overflow: hidden;
+            margin-left: 750px;
+            background-color: #fff;
+        }
+
+        .face .carousel-inner img {
+            border-radius: none;
+            height: 650px; 
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .face .carousel-control-prev-icon,
+        .face .carousel-control-next-icon {
+            background-color: transparent;
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .face .carousel-control-prev,
+        .face .carousel-control-next {
+            width: 5%;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .face .carousel-control-prev:hover,
+        .face .carousel-control-next:hover {
+            opacity: 1;
+        }
+
+        .face .carousel-inner .carousel-item img:hover {
+            transform: scale(1.05);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .face .carousel-item img.d-block {
+            width: 100%;
+            height: 650px;
+            object-fit: cover;
+        }
+
+        .face .carousel-item img.img1 {
+            position: absolute;
+            top: 70px; 
+            left: 10%;
+            transform: none;
+            width: 40%;
+            height: 80%;
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); 
+        }
+
+        .face .carousel-item h2 {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 500px;
+            font-size: 50px;
+        }
+
+        .face .carousel-item .gel1 {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 300px;
+            font-size: 50px;
+        }
+
+        .face .carousel-item .gel3{
+            font-size: 40px;
+            max-width: 400px;
+        }
+
+        .face .carousel-item .gel{
+            font-size: 45px;
+        }
+
+        .face .carousel-item .gel2 {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 400px;
+            font-size: 50px;
+        }
+
+        .face .carousel-item .p1 {
+            position: absolute;
+            bottom: 175px; 
+            left: 60%;
+            transform: translateX(-50%);
+            color: black;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 300px;
+        }
+
+        .face .carousel-item p {
+            position: absolute;
+            bottom: 200px; 
+            left: 60%;
+            transform: translateX(-50%);
+            color: black;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 300px;
+        }
+
+        .face .carousel-item .btn {
+            position: absolute;
+            bottom: 90px;
+            left: 65%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: transparent;
+            color: black;
+            border: 2px solid white;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .face .carousel-item .btn:hover {
+            background-color: white; 
+            color: black;
+        }
+
+        .face h1 {
+            position: absolute;
+            max-width: 500px;
+            text-align: left;
+            font-size: 70px;
+            font-weight: bolder;
+            margin-top: 150px;
+            margin-left: 100px;
+        }
+
+        .face p {
+            position: absolute;
+            max-width: 550px;
+            text-align: justify;
+            margin-left: 100px;
+            margin-top: 320px;
+        }
+
+        /* LASER */
+        .laser {
+            background-color: white;
+        }
+        .laser .background {
+            position: absolute;
+            width: 750px;
+            height: 650px;
+        }
+        .laser .carousel {
+            width: 100%;
+            max-width: 770px;
+            border-radius: none;
+            box-shadow: none;
+            overflow: hidden;
+            margin-left: 0px;
+            background-color: #fff;
+        }
+
+        .laser .carousel-inner img {
+            border-radius: none;
+            height: 650px; 
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .laser .carousel-control-prev-icon,
+        .laser .carousel-control-next-icon {
+            background-color: black;
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .laser .carousel-control-prev,
+        .laser .carousel-control-next {
+            width: 5%;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .laser .carousel-control-prev:hover,
+        .laser .carousel-control-next:hover {
+            opacity: 1;
+        }
+
+        .laser .carousel-inner .carousel-item img:hover {
+            transform: scale(1.05);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .laser .carousel-item img.d-block {
+            width: 100%;
+            height: 650px;
+            object-fit: cover;
+        }
+
+        .laser .carousel-item img.img1 {
+            position: absolute;
+            top: 70px; 
+            left: 10%;
+            transform: none;
+            width: 40%;
+            height: 80%;
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); 
+        }
+
+        .laser .carousel-item h2 {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 400px;
+            font-size: 45px;
+        }
+
+        .laser .carousel-item .gel {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -480px;
+            margin-left: 56%;
+            max-width: 400px;
+            font-size: 50px;
+        }
+
+        .laser .carousel-item p {
+            position: absolute;
+            bottom: 200px; 
+            left: -43%;
+            transform: translateX(-50%);
+            color: black;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 300px;
+        }
+
+        .laser .carousel-item .btn {
+            position: absolute;
+            bottom: 90px;
+            left: 65%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: transparent;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .laser .carousel-item .btn:hover {
+            background-color: black; 
+            color: white;
+        }
+
+        .laser h1 {
+            position: absolute;
+            max-width: 500px;
+            text-align: left;
+            font-size: 70px;
+            font-weight: bolder;
+            margin-top: 150px;
+            margin-left: 900px;
+        }
+
+        .laser p {
+            position: absolute;
+            max-width: 550px;
+            text-align: justify;
+            margin-left: 900px;
+            margin-top: 320px;
+        }
+
+        /* GLUTA */
+        .gluta {
+            background-image: linear-gradient(to bottom, #e8ded4, #ded1c2, #d4c4b1, #c9b89f, #bdac8e);
+        }
+
+        .gluta .background {
+            position: absolute;
+            width: 750px;
+            height: 650px;
+        }
+
+        .gluta .carousel {
+            width: 100%;
+            max-width: 770px;
+            border-radius: none;
+            box-shadow: none;
+            overflow: hidden;
+            margin-left: 750px;
+            background-color: #fff;
+        }
+
+        .gluta .carousel-inner img {
+            border-radius: none;
+            height: 650px; 
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .gluta .carousel-control-prev-icon,
+        .gluta .carousel-control-next-icon {
+            background-color: transparent;
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .gluta .carousel-control-prev,
+        .gluta .carousel-control-next {
+            width: 5%;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .gluta .carousel-control-prev:hover,
+        .gluta .carousel-control-next:hover {
+            opacity: 1;
+        }
+
+        .gluta .carousel-inner .carousel-item img:hover {
+            transform: scale(1.05);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .gluta .carousel-item img.d-block {
+            width: 100%;
+            height: 650px;
+            object-fit: cover;
+        }
+
+        .gluta .carousel-item img.img1 {
+            position: absolute;
+            top: 70px; 
+            left: 10%;
+            transform: none;
+            width: 40%;
+            height: 80%;
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); 
+        }
+
+        .gluta .carousel-item h2 {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 300px;
+            font-size: 50px;
+        }
+
+        .gluta .carousel-item .gel1 {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 300px;
+            font-size: 50px;
+        }
+
+        .gluta .carousel-item .gel3 {
+            font-size: 40px;
+            max-width: 400px;
+        }
+
+        .gluta .carousel-item .gel {
+            font-size: 45px;
+        }
+
+        .gluta .carousel-item .gel2 {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 400px;
+            font-size: 50px;
+        }
+
+        .gluta .carousel-item .p1 {
+            position: absolute;
+            bottom: 175px; 
+            left: 60%;
+            transform: translateX(-50%);
+            color: black;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 300px;
+        }
+
+        .gluta .carousel-item p {
+            position: absolute;
+            bottom: 200px; 
+            left: 60%;
+            transform: translateX(-50%);
+            color: black;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 300px;
+        }
+
+        .gluta .carousel-item .btn {
+            position: absolute;
+            bottom: 90px;
+            left: 65%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: transparent;
+            color: black;
+            border: 2px solid white;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .gluta .carousel-item .btn:hover {
+            background-color: white; 
+            color: black;
+        }
+
+        .gluta h1 {
+            position: absolute;
+            max-width: 500px;
+            text-align: left;
+            font-size: 65px;
+            font-weight: bolder;
+            margin-top: 150px;
+            margin-left: 100px;
+        }
+
+        .gluta p {
+            position: absolute;
+            max-width: 550px;
+            text-align: justify;
+            margin-left: 100px;
+            margin-top: 320px;
+        }
+
+
+        /* EYE */
+        .eye {
+            background-color: white;
+        }
+
+        .eye .background {
+            position: absolute;
+            width: 750px;
+            height: 650px;
+        }
+
+        .eye .carousel {
+            width: 100%;
+            max-width: 770px;
+            border-radius: none;
+            box-shadow: none;
+            overflow: hidden;
+            margin-left: 0px;
+            background-color: #fff;
+        }
+
+        .eye .carousel-inner img {
+            border-radius: none;
+            height: 650px; 
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .eye .carousel-control-prev-icon,
+        .eye .carousel-control-next-icon {
+            background-color: black;
+            padding: 15px;
+            border-radius: 50%;
+        }
+
+        .eye .carousel-control-prev,
+        .eye .carousel-control-next {
+            width: 5%;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .eye .carousel-control-prev:hover,
+        .eye .carousel-control-next:hover {
+            opacity: 1;
+        }
+
+        .eye .carousel-inner .carousel-item img:hover {
+            transform: scale(1.05);
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .eye .carousel-item img.d-block {
+            width: 100%;
+            height: 650px;
+            object-fit: cover;
+        }
+
+        .eye .carousel-item img.img1 {
+            position: absolute;
+            top: 70px; 
+            left: 10%;
+            transform: none;
+            width: 40%;
+            height: 80%;
+            border-top-left-radius: 50%;
+            border-top-right-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); 
+        }
+
+        .eye .carousel-item h2 {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -450px;
+            margin-left: 56%;
+            max-width: 400px;
+            font-size: 45px;
+        }
+
+        .eye .carousel-item .gel {
+            position: absolute;
+            font-weight: bold;
+            margin-top: -480px;
+            margin-left: 56%;
+            max-width: 400px;
+            font-size: 50px;
+        }
+
+        .eye .carousel-item p {
+            position: absolute;
+            bottom: 200px; 
+            left: -43%;
+            transform: translateX(-50%);
+            color: black;
+            font-size: 17px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-align: justify;
+            width: 300px;
+        }
+
+        .eye .carousel-item .gel3{
+            font-size: 40px;
+            max-width: 500px;
+        }
+
+        .eye .carousel-item .btn {
+            position: absolute;
+            bottom: 90px;
+            left: 65%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: transparent;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .eye .carousel-item .btn:hover {
+            background-color: black; 
+            color: white;
+        }
+
+        .eye h1 {
+            position: absolute;
+            max-width: 600px;
+            text-align: left;
+            font-size: 60px;
+            font-weight: bolder;
+            margin-top: 150px;
+            margin-left: 900px;
+        }
+
+        .eye p {
+            position: absolute;
+            max-width: 550px;
+            text-align: justify;
+            margin-left: 900px;
+            margin-top: 320px;
+        }
+
+/* PACKAGE */
+.package {
+    background-image: linear-gradient(to bottom, #e8ded4, #ded1c2, #d4c4b1, #c9b89f, #bdac8e);
+}
+
+.package .background {
+    position: absolute;
+    width: 750px;
+    height: 650px;
+}
+
+.package .carousel {
+    width: 100%;
+    max-width: 770px;
+    box-shadow: none;
+    overflow: hidden;
+    margin-left: 750px;
+    background-color: #fff;
+}
+
+.package .carousel-inner img {
+    height: 650px; 
+    object-fit: cover;
+    width: 100%;
+}
+
+.package .carousel-control-prev-icon,
+.package .carousel-control-next-icon {
+    background-color: transparent;
+    padding: 15px;
+    border-radius: 50%;
+}
+
+.package .carousel-control-prev,
+.package .carousel-control-next {
+    width: 5%;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.package .carousel-control-prev:hover,
+.package .carousel-control-next:hover {
+    opacity: 1;
+}
+
+.package .carousel-inner .carousel-item img:hover {
+    transform: scale(1.05);
+    transition: transform 0.5s ease-in-out;
+}
+
+.package .carousel-item img.d-block {
+    width: 100%;
+    height: 650px;
+    object-fit: cover;
+}
+
+.package .carousel-item img.img1 {
+    position: absolute;
+    top: 70px; 
+    left: 10%;
+    width: 40%;
+    height: 80%;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); 
+}
+
+.package .carousel-item h2 {
+    position: absolute;
+    font-weight: bold;
+    margin-top: -600px;
+    margin-left: 56%;
+    max-width: 300px;
+    font-size: 50px;
+}
+
+
+.package .carousel-item .gel {
+    font-size: 45px;
+}
+
+.package .carousel-item .p1 {
+    position: absolute;
+    bottom: 175px; 
+    left: 60%;
+    transform: translateX(-50%);
+    color: black;
+    font-size: 17px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-align: justify;
+    width: 300px;
+}
+
+.package .carousel-item p {
+    position: absolute;
+    bottom: 50%; 
+    left: 60%;
+    transform: translateX(-50%);
+    color: black;
+    font-size: 17px;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-align: justify;
+    width: 300px;
+}
+
+.package h1 {
+    position: absolute;
+    max-width: 500px;
+    text-align: left;
+    font-size: 50px;
+    font-weight: bolder;
+    margin-top: 150px;
+    margin-left: 100px;
+}
+
+.package p {
+    position: absolute;
+    max-width: 550px;
+    text-align: justify;
+    margin-left: 100px;
+    margin-top: 400px;
+}
+.package .carousel-item ul {
+    position: absolute;
+    bottom: 150px; /* Adjust to desired position */
+    left:75%;
+    transform: translateX(-50%);
+    width: 300px; /* Set width as needed */
+    padding: 0;
+    margin: 0;
+    list-style-type: none; /* Remove default bullets */
+    font-size: 18px;
+    color: black; /* Adjust color as needed */
+    text-align: left;
+}
+
+.package .carousel-item ul li {
+    margin-bottom: 10px; /* Spacing between items */
+    line-height: 1.5; /* Adjust for readability */
+    padding-left: 20px; /* Add padding if you want alignment */
+    position: relative;
+}
+
+.package .carousel-item ul li::before {
+    content: "•"; /* Custom bullet */
+    position: absolute;
+    left: 0;
+    color: #bdac8e; /* Adjust bullet color to match theme */
+    font-size: 20px; /* Adjust size as needed */
+}
+
+        
+ /* Modal base styles */
+ .modal {
+    display: none; /* Hidden by default */
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    width: 50%;
+    border-radius: 10px;
+    position: relative;
+}
+
+/* Close button styles */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: #aaa;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+/* Modal page styles */
+.modal-page {
+    display: none; /* Hide all pages initially */
+}
+
+.modal-page.active {
+    display: block; /* Show only active page */
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #bdac8e;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin: 5px;
+}
+
+
+
+select, input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+.appointment-details {
+display: flex;
+flex-direction: column;
+gap: 15px;
+}
+
+input[type="date"],
+input[type="time"],
+#appointmentNotes {
+width: 100%;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 5px;
+font-size: 16px;
+font-family: Arial, sans-serif;
+box-sizing: border-box;
+}
+
+#appointmentNotes {
+height: 120px;
+resize: vertical;
+box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+input[type="date"]:focus,
+input[type="time"]:focus,
+#appointmentNotes:focus {
+border-color: #007bff;
+outline: none;
+box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+}
+#bookNowBtn {
+    position: fixed;
+    bottom: 60px;
+    right: 50px;
+    padding: 10px 20px;
+    background: linear-gradient(45deg, #8b5e3c, #a07855, #c89f7b);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+    animation: shiningEffect 2s infinite alternate;
+}
+
+#bookNowBtn:hover {
+    transform: scale(1.05);
+}
+
+@keyframes shiningEffect {
+    0% {
+        filter: brightness(1);
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+    }
+    50% {
+        filter: brightness(1.4);
+        box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+        background: linear-gradient(45deg, #9a6a4b, #b48867, #d2a584);
+    }
+    100% {
+        filter: brightness(1);
+        box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+    }
+}
+
+
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 150px;
+    right: 90px;
+    padding: 12px 15px;
+    
+    color: black;
+    font-size: 18px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    display: none; /* Initially hidden */
+    transition: transform 0.2s ease;
+    animation: bounce 2s infinite;
+}
+
+#scrollToTopBtn:hover {
+    transform: scale(1.1);
+}
+
+/* Bounce Animation */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="home.html"><img src="/uploads/logo.png"></a>
+            <div class="nav-links" id="navLinks">
+                <ul>
+                    <li><a href="home.html">HOME</a></li>
+                    <li><a href="home.html">ABOUT</a></li>
+                    <li><a href="service.html"><strong style="color: #e8ded4;">SERVICE</strong></a></li>
+                    <li><a href="home.html">CONTACT</a></li>
+                    <li><a href="profile.html"><img src="/uploads/user.png" alt="Profile" style="width: 65px; height: 65px; vertical-align: middle;"></a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="service-home">
+        <img src="/uploads/spa.jpg" alt="">
+        <h1>SERVICES WE OFFER</h1>
+    </section>
+
+    <section class="service-pick">
+        <div class="category-container">
+            <h1>SERVICES CATEGORY</h1>
+            <div class="category-inline">
+                <div class="category-item">
+                    <a href="#package"><img src="/uploads/c10.jpg" alt="Category 2"></a>
+                    <h2>Packages</h2>
+                </div>
+                <div class="category-item">
+                    <a href="#hand"><img src="/uploads/c.jpg" alt="Category 1"></a>
+                    <h2>Hand Care <br> Services</h2>
+                </div>
+    
+                <div class="category-item">
+                    <a href="#foot"><img src="/uploads/c1.jpg" alt="Category 2"></a>
+                    <h2>Foot Care <br> Services</h2>
+                </div>
+    
+                <div class="category-item">
+                    <a href="#body"><img src="/uploads/c2.jpg" alt="Category 2"></a>
+                    <h2>Body Bleeching/ <br> Body Scrub Services</h2>
+                </div>
+
+                <div class="category-item">
+                    <a href="#shape"><img src="/uploads/c3.jpg" alt="Category 2"></a>
+                    <h2>Body Shapping/ <br> Facial Rejuvination</h2>
+                </div>
+
+                <div class="category-item">
+                    <a href="#makeup"><img src="/uploads/c4.jpg" alt="Category 2"></a>
+                    <h2>Semi Permanent <br> Make-Up</h2>
+                </div>
+
+                <div class="category-item">
+                    <a href="#hair"><img src="/uploads/c5.jpg" alt="Category 2"></a>
+                    <h2>Diode Hair <br> Laser Removal</h2>
+                </div>
+
+                <div class="category-item">
+                    <a href="#face"><img src="/uploads/c6.jpg" alt="Category 2"></a>
+                    <h2>Facial <br> Treatment</h2>
+                </div>
+
+                <div class="category-item">
+                    <a href="#laser"><img src="/uploads/c7.jpg" alt="Category 2"></a>
+                    <h2>Black Doll/ <br> Pico Laser</h2>
+                </div>
+
+                <div class="category-item">
+                    <a href="#gluta"><img src="/uploads/c8.jpg" alt="Category 2"></a>
+                    <h2>Glutathonine/ <br> Waxing Services</h2>
+                </div>
+
+                <div class="category-item">
+                    <a href="#eye"><img src="/uploads/c9.jpg" alt="Category 2"></a>
+                    <h2>Eye Lash/ <br> Threading Services</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="hand" id="hand">
+        <h1>Hand Care Services</h1>
+        <p>Our hand care services rejuvenate and nourish your hands with treatments ranging from classic manicures and moisturizing hand therapies for dry skin to anti-aging treatments that target fine lines and age spots, leaving your hands soft, smooth, and revitalized. 
+            We use high-quality products to exfoliate, hydrate, and protect your hands, ensuring they look and feel their best. 
+            Whether you're looking for a quick refresh or a luxurious pampering session, our hand care services provide the perfect solution for healthy, beautiful hands.</p>
+        <div id="carouselHand" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/hc.jpg" alt="">
+                <h2>Manicure</h2>
+                <p> 
+                    Our manicure service offers professional nail care, shaping, cuticle treatment, and a flawless polish finish, leaving your hands looking neat and well-groomed.
+                    <br>
+                    ₱ 100 - 150
+                </p>
+                
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/hc1.jpg" alt="">
+                <h2 class="gel">Gel Manicure</h2>
+                <p>
+                    Gel manicure provides long-lasting, chip-resistant nails with a glossy finish. 
+                    <br>
+                    ₱ 350
+                </p>
+                
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/hc2.jpg" alt="">
+                <h2 class="gel1">Gel Manicure Cat Eye</h2>
+                <p class="p1">
+                    A cat-eye gel manicure features a magnetic polish that creates a sleek, reflective line resembling a cat’s eye when exposed to a magnet. 
+                    <br>
+                    ₱ 500
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/hc3.jpg" alt="">
+                <h2 class="gel1">Advance Nail Extention</h2>
+                <p class="p1">
+                    captivating blend of artistry and technique, designed to elevate the beauty of your nails. This sophisticated process like acrylic.
+                    <br>
+                    ₱ 1200
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/hc4.jpg" alt="">
+                <h2 class="gel1">Premium Hand Spa</h2>
+                <p class="p1">
+                    A Premium Hand Spa rejuvenates hands with soaking, exfoliation, massage, and moisturizing, leaving them soft, hydrated, and beautiful.
+                    <br>
+                    ₱ 250 
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/hc5.jpg" alt="">
+                <h2 class="gel1">Signature Hand Spa</h2>
+                <p class="p1">
+                    A Signature Hand Spa includes custom exfoliation, massage, and deep hydration, leaving hands smooth, nourished, and refreshed.
+                    <br>
+                    ₱ 350 
+                </p>
+                
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/hc6.jpg" alt="">
+                <h2 class="gel1">Hand Paraffin Wax</h2>
+                <p class="p1">
+                    A Hand Paraffin Wax treatment uses warm paraffin wax to deeply moisturize, soften skin, and soothe aching joints and muscles.
+                    <br>
+                    ₱ 280 
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/hc7.jpg" alt="">
+                <h2 class="gel1">Arm Paraffin Wax</h2>
+                <p class="p1">
+                    An Arm Paraffin Wax treatment applies warm paraffin wax to deeply hydrate the skin, relieve tension, and soothe aching muscles.
+                    <br>
+                    ₱ 350 
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/hc8.jpg" alt="">
+                <h2 class="gel2">Nail Extention Removal</h2>
+                <p class="p1">
+                    Nail Extension Removal involves carefully soaking or filing off the extensions. Gentle buffing and moisturizing to restore natural nails.
+                    <br>
+                    ₱ 350 
+                </p>
+                
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/hc9.jpg" alt="">
+                <h2 class="gel1">Nail Stone</h2>
+                <p class="p1">
+                    Nail stones are small, decorative gems applied to nails, adding sparkle, elegance, and a touch of luxury to enhance manicures or nail extensions, creating a stylish and eye-catching look.
+                    <br>
+                    ₱ 5 - 15 
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/hc10.jpg" alt="">
+                <h2 class="gel1">Nail Sticker</h2>
+                <p class="p1">
+                    Nail stickers are adhesive designs applied to nails, providing a quick and easy way to add stylish patterns or intricate artwork to manicures, enhancing creativity and personal expression with minimal effort.
+                    <br>
+                    ₱ 20 
+                </p>
+                
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/hc11.jpg" alt="">
+                <h2 class="gel1">Gel Removal</h2>
+                <p class="p1">
+                    Gel removal is the process of safely taking off gel nail polish, typically involving soaking nails in acetone, gently buffing, and using a cuticle pusher to lift the gel. Proper techniques effective gel removal.
+                    <br>
+                    ₱ 50 - 100 
+                </p>
+                
+              </div>
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselHand" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselHand" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <section class="foot" id="foot">
+        <h1>Foot Care Services</h1>
+        <p>
+            Foot Care Services provide specialized treatments to maintain the health and comfort of feet, particularly for individuals with conditions like diabetes, arthritis, or circulatory issues. 
+            The services include thorough assessments to identify abnormalities and skin conditions, professional nail care to prevent infections, and treatment for calluses and corns. 
+            Diabetic foot care is offered, focusing on prevention and management of complications, alongside pain relief techniques such as massages and orthotic recommendations.
+        </p>
+        <div id="carouselFoot" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/fc.jpg" alt="">
+                <h2>Pedecure</h2>
+                <p>
+                    A pedicure is a cosmetic treatment for the feet and toenails that includes soaking, exfoliating, shaping, and polishing the nails.
+                    <br>
+                    ₱ 100 - 150
+                </p>
+                
+              </div>
+
+              <div class="carousel-item ">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/fc1.jpg" alt="">
+                <h2>Gel Pedecure</h2>
+                <p>
+                    A gel pedicure is a long-lasting treatment that involves applying a gel polish to the toenails, which is cured under a UV light.
+                    <br>
+                    ₱ 400
+                </p>
+                
+              </div>
+
+              <div class="carousel-item ">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/fc2.jpg" alt="">
+                <h2 class="gel">Premium Foot Spa</h2>
+                <p>
+                    Indulge in a luxurious foot spa experience featuring soothing jets, aromatic oils, warm water, and gentle massage for ultimate relaxation.
+                    <br>
+                    ₱ 300
+                </p>
+                
+              </div>
+
+              <div class="carousel-item ">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/fc3.jpg" alt="">
+                <h2 class="gel">Signature Foot Spa</h2>
+                <p>
+                    Experience our signature foot spa, featuring a revitalizing massage, exfoliating scrubs, and soothing oils for deep relaxation and rejuvenation.
+                    <br>
+                    ₱ 350
+                </p>
+                
+              </div>
+
+              <div class="carousel-item ">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/fc4.jpg" alt="">
+                <h2 class="gel">Jelly Foot Spa w/Pedecure</h2>
+                <p>
+                    Enjoy the Jelly Foot Spa with pedicure, featuring a soothing jelly bath, gentle exfoliation, and a relaxing massage for pampered feet.
+                    <br>
+                    ₱ 380
+                </p>
+             
+              </div>
+
+              <div class="carousel-item ">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/fc5.jpg" alt="">
+                <h2 class="gel">Foot Paraffin Wax</h2>
+                <p>
+                    Experience our foot paraffin wax treatment, which deeply hydrates, soothes, and softens your feet, leaving them silky    and rejuvenated.
+                    <br>
+                    ₱ 350
+                
+              </div>
+
+              <div class="carousel-item ">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/fc6.jpg" alt="">
+                <h2 class="gel">Leg Paraffin Wax</h2>
+                <p>
+                    Indulge in our leg paraffin wax treatment for deep hydration, soothing warmth, and softness, rejuvenating your legs for comfort.
+                    <br>
+                    ₱ 450
+                </p>
+                
+              </div>
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselFoot" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselFoot" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+          </div>
+    </section>
+
+    <section id="body" class="body">
+        <h1>Body Bleaching/ <br> Scrub Services</h1>
+        <p>Indulge in luxurious body bleaching and scrub services designed to brighten and rejuvenate your skin. 
+            These treatments gently exfoliate, removing dead skin cells while promoting a radiant and even complexion. 
+            Experience a smoother texture, enhanced hydration, and a revitalized glow, leaving your skin feeling refreshed and beautifully luminous.</p>
+        <div id="carouselBody" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active" data-bs-interval="10000">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/b.jpg" alt="">
+                <h2>Nape</h2>
+                <p>Experience our body bleaching for the nape, lightening dark areas, evening skin tone, and enhancing overall skin brightness.
+                    <br>
+                    ₱ 250
+                </p>
+                
+              </div>
+
+              <div class="carousel-item" data-bs-interval="10000">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/b1.jpg" alt="">
+                <h2>Underarm</h2>
+                <p>
+                    Our body bleaching for underarms lightens dark areas, evens skin tone, and promotes smoother, brighter, and refreshed skin.
+                    <br>
+                    ₱ 250
+                </p>
+               
+              </div>
+
+              <div class="carousel-item" data-bs-interval="10000">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/b2.jpg" alt="">
+                <h2>Elbow</h2>
+                <p>Experience body bleaching for elbows, targeting dark areas to brighten, smooth, and even out your skin tone beautifully.
+                    <br>
+                    ₱ 250
+                </p>
+              
+              </div>
+
+              <div class="carousel-item" data-bs-interval="10000">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/b3.jpg" alt="">
+                <h2>Knee</h2>
+                <p>Our body bleaching for knees effectively lightens dark areas, evens skin tone, and promotes smoother, brighter skin.
+                    <br>
+                    ₱ 250
+                </p>
+               
+              </div>
+
+              <div class="carousel-item" data-bs-interval="10000">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/b4.jpg" alt="">
+                <h2>Bikini</h2>
+                <p>Experience body bleaching for the bikini area, lightening dark spots, evening skin tone, and enhancing smoothness for radiant skin.
+                    <br>
+                    ₱ 300
+                </p>
+                
+              </div>
+
+              <div class="carousel-item" data-bs-interval="10000">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/b5.jpg" alt="">
+                <h2>Whole Body</h2>
+                <p>Enjoy whole-body bleaching, lightening dark areas, evening skin tone, and promoting radiant, smooth, and beautifully refreshed skin.
+                    <br>
+                    ₱ 800
+                </p>
+               
+              </div>
+
+              <div class="carousel-item" data-bs-interval="10000">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/b6.jpg" alt="">
+                <h2>Signature Body Scrub</h2>
+                <p>Indulge in our signature body scrub for smooth, exfoliated, and revitalized skin, leaving you feeling refreshed.
+                    <br>
+                    ₱ 500
+                </p>
+               
+              </div>
+
+              <div class="carousel-item" data-bs-interval="10000">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/b7.jpg" alt="">
+                <h2>Whitening Body Scrub</h2>
+                <p>Revitalize your skin with our whitening body scrub to exfoliate and brighten your skin.
+                    <br>
+                    ₱ 600
+                </p>
+                
+              </div>
+
+              <div class="carousel-item" data-bs-interval="10000">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/b8.jpg" alt="">
+                <h2>Ultimate Body Scrub</h2>
+                <p>Experience the ultimate body scrub for deep exfoliation, leaving your skin smooth, radiant, and rejuvenated.
+                    <br>
+                    ₱ 800
+                </p>
+               
+              </div>
+              
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselBody" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselBody" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+    </section>
+
+    <section id="shape" class="shape">
+        <h1>Body Shaping/ <br> Facial Rejuvination</h1>
+        <p>Transform your appearance with our body shaping and facial rejuvenation services, expertly designed to enhance your natural beauty. 
+            Our body shaping treatments sculpt and contour your physique, promoting a toned silhouette and boosting your confidence. 
+            Meanwhile, facial rejuvenation therapies refresh your skin, reducing the signs of aging and restoring a youthful glow. 
+            Experience the perfect combination of these services for a comprehensive approach to looking and feeling your best, revealing smooth, revitalized skin and a beautifully contoured body.</p>
+        <div id="carouselShape" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/s.jpg" alt="">
+                <h2>Focus RF Face <br> (basic cleaning)</h2>
+                <p>Experience Focus RF Face with basic cleaning for a refreshed, rejuvenated complexion, enhancing skin texture and tone effectively.
+                    <br>
+                    ₱ 800
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/s1.jpg" alt="">
+                <h2>Focus RF Tummy</h2>
+                <p>Experience Focus RF Tummy treatment for skin tightening, targeting stubborn areas to enhance firmness.
+                    <br>
+                    ₱ 1000
+                </p>
+              
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/s2.jpg" alt="">
+                <h2>Focus RF <br> Back</h2>
+                <p>Experience Focus RF Back treatment for tightening and smoothing, effectively enhancing skin texture and firmness on the back.
+                    <br>
+                    ₱ 1000
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/s3.jpg" alt="">
+                <h2>Exilift - Basic <br> Facial Cleaning</h2>
+                <p>Experience Exilift Basic Facial Cleaning for a refreshing cleanse, promoting clear skin while enhancing your natural radiance effortlessly.
+                    <br>
+                    ₱ 1200
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/s4.jpg" alt="">
+                <h2>Exilift - Deep <br> Facial Cleaning</h2>
+                <p>Experience Exilift Deep Facial Cleaning for a thorough cleanse that removes impurities and enhances your skin's natural glow.
+                    <br>
+                    ₱ 1500
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/s5.jpg" alt="">
+                <h2>Exilift - <br> Diamond Peel</h2>
+                <p>Experience Exilift Diamond Peel for smooth, radiant skin through gentle exfoliation and reduced imperfections.
+                    <br>
+                    ₱ 1800
+                </p>
+           
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/s6.jpg" alt="">
+                <h2>Exilift - <br> Complete Facial</h2>
+                <p>Experience Exilift Complete Facial for a comprehensive treatment that cleanses, exfoliates, and rejuvenates your skin.
+                    <br>
+                    ₱ 2000
+                </p>
+          
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/s7.jpg" alt="">
+                <h2>Exilift - <br> Hydra Facial</h2>
+                <p>Experience Exilift Hydra Facial for deep hydration and cleansing, leaving your skin refreshed, plump, and glowing.
+                    <br>
+                    ₱ 2500
+                </p>
+             
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/s8.jpg" alt="">
+                <h2>Exilis Barbie <br> Arms</h2>
+                <p>Experience Exilis Barbie Arm treatment for tighter, toned arms, effectively reducing flabbiness and enhancing arm appearance.
+                    <br>
+                    ₱ 1500
+                </p>
+          
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/s9.jpg" alt="">
+                <h2>Exilis Body <br> (T/B/T)</h2>
+                <p>Experience Exilis Body treatment for skin tightening and contouring, effectively improving body shape and enhancing overall smoothness.
+                    <br>
+                    ₱ 2000
+                </p>
+               \
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/s10.jpg" alt="">
+                <h2>Meso Lipo <br> Injection</h2>
+                <p>Experience Meso Lipo Injection for targeted fat reduction, promoting a slimmer appearance and smoother skin in problem areas.
+                    <br>
+                    ₱ 1000 - 1500
+                </p>
+           
+              </div>
+              
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselShape" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselShape" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+    </section>
+
+    <section class="makeup" id="makeup">
+        <h1>Semi Permanent Make-Up</h1>
+        <p>Semi-permanent make-up is a cosmetic technique that uses micro-pigmentation to enhance facial features. 
+            It involves applying pigments to the skin, resembling makeup such as eyeliner, lip color, or eyebrow shading. 
+            The results typically last from one to three years, fading gradually over time. 
+            It offers a low-maintenance solution for individuals seeking to enhance their appearance without daily makeup application. 
+            The procedure is customizable to suit personal preferences, skin types, and natural features, providing a long-lasting, polished look.</p>
+        <div id="carouselMakeup" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/m.jpg" alt="">
+                <h2>6D Microblading</h2>
+                <p>Experience 6D Microblading for natural, fuller brows with precise strokes that mimic real hair, enhancing your facial features.
+                    <br>
+                    ₱ 5500
+                </p>
+                
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/m1.jpg" alt="">
+                <h2>Combrows</h2>
+                <p>Experience Combrows, a unique blend of microblading and shading, for fuller, natural-looking brows with perfect definition, depth, and long-lasting results.
+                    <br>
+                    ₱ 6500
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/m2.jpg" alt="">
+                <h2>Pixel Brows</h2>
+                <p>Experience Pixel Brows for a natural, soft-shaded look that enhances brow definition with precise, fine, pixelated strokes, offering beautifully long-lasting results.
+                    <br>
+                    ₱ 7500
+                </p>
+                
+              </div>
+
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/m3.jpg" alt="">
+                <h2>Eye Liner</h2>
+                <p>Experience Aye Liner, a semi-permanent eyeliner treatment that enhances your eyes with precise, long-lasting definition and smudge-free results.
+                    <br>
+                    ₱ 3500
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/m4.jpg" alt="">
+                <h2>Lip Tint/ <br> Lip Blush</h2>
+                <p>Experience Lip Tint/Lip Blush for a natural, long-lasting color that enhances your lips, giving them a soft, youthful glow.
+                    <br>
+                    ₱ 6500
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/m5.jpg" alt="">
+                <h2>Korean BB/CC Glow</h2>
+                <p>Enjoy Korean BB/CC Glow for a radiant complexion with hydration and lightweight coverage for a dewy finish.
+                    <br>
+                    ₱ 1800
+                </p>
+              
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/m6.jpg" alt="">
+                <h2>Stem Cell Rejuvination</h2>
+                <p>Experience Stem Cell Rejuvenation for youthful skin that enhances elasticity and promotes a smoother, revitalized appearance.
+                    <br>
+                    ₱ 1800
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/m7.jpg" alt="">
+                <h2>Acne Scar Removal</h2>
+                <p>Experience Acne Scar Removal for smoother skin, reducing the appearance of scars and promoting a clearer, more even complexion.
+                    <br>
+                    ₱ 2500
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/m8.jpg" alt="">
+                <h2>Tattoo (Removal)</h2>
+                <p>Experience Tattoo Removal for safe, effective elimination of unwanted tattoos, restoring your skin’s natural appearance.
+                    <br>
+                    ₱ 3000
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/m9.jpg" alt="">
+                <h2>Color Correction</h2>
+                <p>Experience Color Correction to even out skin tone, reducing redness or discoloration for a flawless, radiant complexion.
+                    <br>
+                    ₱ 1500
+                </p>
+                
+              </div>
+              
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselMakeup" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselMakeup" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+    </section>
+
+    <section class="hair" id="hair">
+        <h1>Diode Hair Laser Removal</h1>
+        <p>Experience the ultimate in hair removal with our diode hair removal services, offering a safe and effective solution for smooth, hair-free skin. 
+            This advanced technology targets hair follicles with precision, ensuring a quick and virtually painless treatment. 
+            Ideal for all skin types, diode laser hair removal provides long-lasting results with minimal discomfort. 
+            Enjoy the convenience of permanent hair reduction, allowing you to say goodbye to traditional shaving and waxing methods. 
+            Our skilled professionals are dedicated to your comfort, ensuring a personalized experience that leaves your skin feeling soft, silky, and beautifully smooth.</p>
+        <div id="carouselHair" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/hr.jpg" alt="">
+                    <h2>Upper Lip/ <br> Lower Lip</h2>
+                    <p>Experience Diode Hair Removal for upper and lower lips, providing safe, effective hair removal.
+                        <br>
+                        ₱ 500
+                    </p>
+                   
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/hr1.jpg" alt="">
+                    <h2 class="gel">Underarm</h2>
+                    <p>Experience Diode Hair Removal for underarms, ensuring safe, long-lasting hair removal that leaves your skin smooth, soft, and irritation-free.
+                        <br>
+                        ₱ 800
+                    </p>
+                   
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/hr2.jpg" alt="">
+                    <h2 class="gel1">Fullface</h2>
+                    <p class="p1">
+                        Experience Diode Hair Removal for the full face, providing safe and effective hair removal for smooth, soft skin without irritation. 
+                        <br>
+                        ₱ 800
+                    </p>
+                 
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/hr3.jpg" alt="">
+                    <h2 class="gel1">Arms (half - full)</h2>
+                    <p class="p1">
+                        Experience Diode Hair Removal for arms, ensuring safe, effective hair removal for smooth, soft skin.
+                        <br>
+                        ₱ 1000 - 1200
+                    </p>
+                   
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/hr4.jpg" alt="">
+                    <h2 class="gel1">Leg (half - full)</h2>
+                    <p class="p1">
+                        Experience Diode Hair Removal for legs, ensuring smooth, soft skin with safe, effective results.
+                        <br>
+                        ₱ 1200 - 1600 
+                    </p>
+                 
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/hr5.jpg" alt="">
+                    <h2 class="gel1">Brazillian</h2>
+                    <p class="p1">
+                        Experience Diode Hair Removal for Brazilian areas, offering safe, effective hair removal for smooth, soft skin with long-lasting results.
+                        <br>
+                        ₱ 1200 
+                    </p>
+                    
+                </div>
+    
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselHair" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselHair" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <section class="face" id="face">
+        <h1>Facial Treatment</h1>
+        <p>Revitalize your skin with our comprehensive facial treatments, tailored to meet your unique skincare needs. 
+            Each session begins with a thorough consultation to assess your skin type and concerns, ensuring personalized care. 
+            Our facials combine deep cleansing, exfoliation, and hydration, promoting a brighter, more youthful complexion. 
+            Experience soothing masks, rejuvenating serums, and relaxing facial massages that not only improve skin texture but also enhance your overall well-being. 
+            Unwind and indulge in a transformative experience that leaves your skin feeling refreshed, rejuvenated, and radiant.</p>
+        <div id="carouselFace" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/f.jpg" alt="">
+                <h2>Deep Facial Cleaning</h2>
+                <p> Experience Deep Facial Treatment for intensive cleansing and healthier, radiant skin.
+                    <br>
+                    ₱ 300
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/f1.jpg" alt="">
+                <h2 class="gel">Facial Cleaning w/Treatment</h2>
+                <p>Experience Facial Cleaning with Treatment for deep cleansing and rejuvenated, clear skin. 
+                    <br>
+                    ₱ 500
+                </p>
+              
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/f2.jpg" alt="">
+                <h2 class="gel1">Facial w/ Diamond Peel</h2>
+                <p class="p1">
+                    Experience Facial with Diamond Peel for smooth, radiant, and rejuvenated skin.
+                    <br>
+                    ₱ 650
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/f3.jpg" alt="">
+                <h2 class="gel3">Facial w/ Golvanic Treatment</h2>
+                <p class="p1">
+                    Experience Facial with Galvanic Treatment for deep cleansing and a refreshed, youthful appearance.
+                    <br>
+                    ₱ 700
+                </p>
+              
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/f4.jpg" alt="">
+                <h2 class="gel3">Complete Facial Treatment</h2>
+                <p class="p1">
+                    Experience Complete Facial Treatment for thorough cleansing, hydration, and radiant, rejuvenated skin.
+                    <br>
+                    ₱ 1000 
+                </p>
+                
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/f5.jpg" alt="">
+                <h2 class="gel1">Korean Glow Treatment</h2>
+                <p class="p1">
+                    Experience Korean Glow Treatment for radiant, dewy skin and a luminous complexion.
+                    <br>
+                    ₱ 1500 
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/f6.jpg" alt="">
+                <h2 class="gel1">Hydra Facial</h2>
+                <p class="p1">
+                    Experience Hydra Facial for deep hydration and cleansing, effectively removing impurities and leaving your skin refreshed, rejuvenated, and glowing.
+                    <br>
+                    ₱ 1500 
+                </p>
+               
+              </div>
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselFace" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselFace" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <section class="laser" id="laser">
+        <h1>Black Doll/ <br> Pico Laser</h1>
+        <p>Discover the transformative power of our Black Doll and Pico Laser treatments, designed to enhance your skin's appearance and texture. 
+            The Black Doll treatment combines activated charcoal with laser technology to deeply cleanse, exfoliate, and brighten the skin, resulting in a radiant and youthful glow. 
+            This innovative procedure helps to minimize pores, reduce pigmentation, and improve overall skin tone.</p>
+        <div id="carouselLaser" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/l.jpg" alt="">
+                <h2>Face - Basic Facial Cleaning</h2>
+                <p> Experience Basic Facial Pico Laser for gentle rejuvenation and clearer, smoother skin.
+                    <br>
+                    ₱ 1000
+                </p>
+               
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/l1.jpg" alt="">
+                <h2 class="gel">Face - Deep Facial Cleaning</h2>
+                <p>Experience Face Deep Facial Cleaning for thorough cleansing and clear, healthy skin. 
+                    <br>
+                    ₱ 1200
+                </p>
+                
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/l2.jpg" alt="">
+                <h2 class="gel1">Face - Facial Diamond Peel</h2>
+                <p class="p1">
+                    Experience Facial Diamond Peel Pico Laser for smoother, brighter skin and advanced rejuvenation.
+                    <br>
+                    ₱ 1500  
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/l3.jpg" alt="">
+                <h2 class="gel3">Underarm</h2>
+                <p class="p1">
+                    Experience Facial with Galvanic Treatment for deep cleansing and a refreshed, youthful appearance.
+                    <br>
+                    ₱ 800
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/l4.jpg" alt="">
+                <h2 class="gel3">Knee/Elbow</h2>
+                <p class="p1">
+                    A fast, effective treatment that targets pigmentation and uneven skin tone on knees and elbows.
+                    <br>
+                    ₱ 600 
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/l5.jpg" alt="">
+                <h2 class="gel1">Nape/Neck</h2>
+                <p class="p1">
+                    A quick treatment that rejuvenates the skin on the nape and neck, reducing pigmentation and fine lines.
+                    <br>
+                    ₱ 700 
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/l6.jpg" alt="">
+                <h2 class="gel1">Butt</h2>
+                <p class="p1">
+                    A targeted treatment for the buttocks that tightens skin, reduces imperfections, and enhances overall texture.
+                    <br>
+                    ₱ 700 
+                </p>
+              </div>
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselLaser" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselLaser" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+    
+    <section class="gluta" id="gluta">
+        <h1>Glutathonine and <br> Waxing Services</h1>
+        <p>Experience radiant skin with our Glutathione treatments, renowned for their powerful antioxidant properties that help reduce pigmentation and enhance skin tone. 
+            Coupled with our professional waxing services, which offer smooth, hair-free skin for all areas, you’ll enjoy a comprehensive beauty experience. 
+            Our expert team prioritizes your comfort, ensuring each service leaves your skin feeling revitalized and looking luminous and silky. 
+            Embrace a renewed glow and smoothness today!</p>
+        <div id="carouselGluta" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/gl.jpg" alt="">
+                <h2>Premium Gluta Push</h2>
+                <p> Experience the ultimate skin rejuvenation with our Premium Glutathione Push.
+                    <br>
+                    ₱ 850
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/gl1.jpg" alt="">
+                <h2 class="gel">Radiant Gluta Drip</h2>
+                <p>Transform your skin with our Radiant Glutathione Drip lighten dark spots and smooth your body.
+                    <br>
+                    ₱ 1400
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/gl2.jpg" alt="">
+                <h2 class="gel1">Ultimate Gluta Drip</h2>
+                <p class="p1">
+                    Experience the pinnacle of skincare with our Ultimate Glutathione Drip, an advanced intravenous therapy, rejuvenate your skin.
+                    <br>
+                    ₱ 1999
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/gl3.jpg" alt="">
+                <h2 class="gel3">Wax - Eyebrow</h2>
+                <p class="p1">
+                    Achieve perfectly shaped brows with our eyebrow waxing service. We carefully remove unwanted hair to define and enhance your natural brow shape, giving your face a polished and well-groomed look.
+                    <br>
+                    ₱ 100
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/gl4.jpg" alt="">
+                <h2 class="gel3">Wax - Upper Lip</h2>
+                <p class="p1">
+                    Our upper lip waxing effectively removes unwanted hair, providing a smooth and clean appearance. 
+                    This quick and gentle service leaves your skin soft and hair-free, perfect for a flawless makeup application.
+                    <br>
+                    ₱ 100 
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/gl5.jpg" alt="">
+                <h2 class="gel1">Wax - Chin</h2>
+                <p class="p1">
+                    Eliminate unwanted hair from your chin with our gentle waxing service. 
+                    We ensure a comfortable experience, leaving your skin smooth and free of irritation, while enhancing your facial features.
+                    <br>
+                    ₱ 150 
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/gl6.jpg" alt="">
+                <h2 class="gel1">Wax - Underarm</h2>
+                <p class="p1">
+                    Experience long-lasting smoothness with our underarm waxing service. 
+                    This effective treatment removes hair quickly and efficiently.
+                    <br>
+                    ₱ 300 
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/gl7.jpg" alt="">
+                <h2 class="gel1">Wax - Arms (half/full)</h2>
+                <p class="p1">
+                    Choose half or full arm waxing for silky smooth skin, eliminating unwanted hair effectively.
+                    <br>
+                    ₱ 300 - 500
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/gl8.jpg" alt="">
+                <h2 class="gel1">Wax - Legs (half/full)</h2>
+                <p class="p1">
+                    Achieve beautifully smooth legs with our half or full leg waxing options, perfect for any occasion.
+                    <br>
+                    ₱ 400 - 700 
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/gl9.jpg" alt="">
+                <h2 class="gel1">Wax - Bikini</h2>
+                <p class="p1">
+                    Our bikini waxing service provides a clean and tidy look, tailored to your comfort level. 
+                    Whether you prefer a basic trim or a more defined shape, we ensure a gentle and precise experience.
+                    <br>
+                    ₱ 350 
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <img src="/uploads/bd.png" class="d-block w-100" alt="...">
+                <img class="img1" src="/uploads/gl10.jpg" alt="">
+                <h2 class="gel1">Wax - Brazilian</h2>
+                <p class="p1">
+                    Get a completely hair-free look with our Brazilian waxing, ensuring a smooth finish and lasting results.
+                    <br>
+                    ₱ 700 
+                </p>
+              </div>
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselGluta" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselGluta" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <section class="eye" id="eye">
+        <h1>Eye Lash/ <br> Threading Services</h1>
+        <p>Enhance your beauty with our Lash and Threading Services. 
+            Our expert technicians offer professional lash extensions that add volume and length, providing a glamorous look that lasts for weeks. 
+            Complement your lashes with our precise threading services, which gently shape eyebrows and remove unwanted facial hair for a smooth finish. 
+            Experience the perfect combination of defined brows and stunning lashes, leaving you feeling confident and radiant. 
+            Treat yourself to this complete beauty solution today!</p>
+        <div id="carouselEye" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/t.jpg" alt="">
+                    <h2>Perming</h2>
+                    <p>Enhance your natural lashes with a beautiful curl that lasts for weeks, giving your eyes a captivating and lifted appearance.</p>
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/t1.jpg" alt="">
+                    <h2 class="gel">Lash Lift w/Tint</h2>
+                    <p>Enjoy a combination of a lash lift and tint, creating a stunning, wide-eyed look that makes your lashes appear longer and darker without the need for extensions.</p>
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/t2.jpg" alt="">
+                    <h2 class="gel1">Korean Lash Lift</h2>
+                    <p>Experience the popular Korean lash lift, which provides a soft, natural curl that enhances your lash volume and opens up your eyes for a fresh, youthful look.</p>
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/t3.jpg" alt="">
+                    <h2 class="gel3">Classic Eyelash Extension</h2>
+                    <p>Individual lashes are expertly applied to create a natural yet glamorous enhancement, allowing you to enjoy longer, fuller lashes without the fuss of mascara.</p>
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/t4.jpg" alt="">
+                    <h2 class="gel3">Celebrity Eyelash Extension</h2>
+                    <p>Indulge in luxurious eyelash extensions that offer a dramatic, red-carpet-ready appearance, perfect for those special occasions or when you simply want to stand out.</p>
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/t5.jpg" alt="">
+                    <h2 class="gel1">Classic Eyelash Refill - 1 week</h2>
+                    <p>Refresh your look with a quick refill of your classic eyelash extensions, ensuring your lashes remain full and fabulous for an extended period.</p>
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/t12.jpg" alt="">
+                    <h2 class="gel3">Celebrity Eyelash Refill - 1 week</h2>
+                    <p>Maintain the stunning volume and length of your celebrity-style lash extensions with a refill, perfect for keeping your glamorous look intact.</p>
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/t6.jpg" alt="">
+                    <h2 class="gel3">Eyelash Extension Removal</h2>
+                    <p>Safely and gently remove your eyelash extensions with our professional removal service, ensuring the health and integrity of your natural lashes.</p>
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/t7.jpg" alt="">
+                    <h2 class="gel3">Threading - Eyebrow</h2>
+                    <p>Achieve precise eyebrow shaping through traditional threading techniques, ensuring a clean, defined look that enhances your facial features.</p>
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/t8.jpg" alt="">
+                    <h2 class="gel1">Threading - Upper Lip</h2>
+                    <p>Enjoy smooth skin with our upper lip threading service, designed to effectively remove unwanted hair for a polished and refined appearance.</p>
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/t9.jpg" alt="">
+                    <h2 class="gel1">Threading - Chin</h2>
+                    <p>Our chin threading service gently removes unwanted hair, leaving you with a flawless finish and boosting your confidence.</p>
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/t10.jpg" alt="">
+                    <h2 class="gel1">Threading - Whole Face</h2>
+                    <p>Experience complete facial threading to remove unwanted hair, achieving an even and fresh look that enhances your overall beauty.</p>
+                </div>
+    
+                <div class="carousel-item">
+                    <img src="/uploads/bg1.jpg" class="d-block w-100" alt="...">
+                    <img class="img1" src="/uploads/t11.jpg" alt="">
+                    <h2 class="gel3">Threading - Underarm</h2>
+                    <p>Quick and effective underarm threading ensures long-lasting smoothness, making it a convenient option for maintaining your beauty routine.</p>
+                </div>
+    
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselEye" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselEye" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+    
+    <button id="scrollToTopBtn" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <!-- Changed to a regular link -->
+    <a href="form.html" id="bookNowBtn" class="btn">Book Now!</a>
+
+<!-- Modal Structure -->
+<div id="spaModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <form id="bookingForm">
+            <!-- Page 1: User Information -->
+            <div id="page1" class="modal-page">
+                <h2>User Information</h2>
+                <label for="userName">Name:</label>
+                <input type="text" id="userName" name="userName" required>
+
+                <label for="userEmail">Email:</label>
+                <input type="email" id="userEmail" name="userEmail" required>
+
+                <label for="userAddress">Address:</label>
+                <input type="text" id="userAddress" name="userAddress">
+
+                <label for="userContact">Contact:</label>
+                <input type="tel" id="userContact" name="userContact" required>
+
+                <button type="button" id="nextToPage2">Next</button>
+            </div>
+
+            <!-- Page 2: Select Services -->
+            <div id="page2" class="modal-page" style="display: none;">
+                <h2>Select Services</h2>
+                <p>Select a service and category.</p>
+
+                <label for="serviceDropdown">Select Service:</label>
+                <select id="serviceDropdown" name="service" required>
+                    <option value="">--Select Service--</option>
+                    <option value="brows">EyeBrows</option>
+                    <option value="makeup">Semi Permanent Makeup</option>
+                    <option value="facial">Facial Treatment</option>
+                    <option value="pico-laser">Black Doll/Pico Laser</option>
+                    <option value="gluta">Glutathiones</option>
+                    <option value="wax">Waxing</option>
+                    <option value="laser">Hair Laser</option>
+                    <option value="bleaching">Body Bleaching</option>
+                    <option value="scrub">Scrub</option>
+                    <option value="body-shaping">Body Shaping</option>
+                    <option value="hand-care">Hand Care</option>
+                    <option value="foot-care">Foot Care</option>
+                    <option value="eyelash">Eyelash</option>
+                    <option value="threading">Threading</option> 
+                    <option value="package1">Black Doll Peel Package</option> 
+                    <option value="package2">Contour Face and Body Package</option>
+                </select>
+
+                <label for="categoryDropdown" id="categoryLabel" style="display: none;">Select Category:</label>
+                <select id="categoryDropdown" name="category" style="display: none;"></select>
+
+                <label for="additionalDropdown" id="additionalLabel" style="display: none;">Select Additional:</label>
+                <select id="additionalDropdown" name="additional" style="display: none;"></select>
+
+                <div class="button-group">
+                    <button type="button" id="backToPage1">Back</button>
+                    <button type="button" id="nextToPage3">Next</button>
+                </div>
+            </div>
+
+            <!-- Page 3: Appointment Details -->
+            <div id="page3" class="modal-page" style="display: none;">
+                <h2>Appointment Details</h2>
+                <label for="appointmentDate">Appointment Date:</label>
+                <input type="date" id="appointmentDate" name="appointmentDate" required>
+
+                <label for="appointmentTime">Appointment Time:</label>
+                <input type="time" id="appointmentTime" name="appointmentTime" required>
+
+                <label for="appointmentNotes">Notes:</label>
+                <textarea id="appointmentNotes" name="appointmentNotes" rows="4" placeholder="Enter any notes here"></textarea>
+
+                <div class="button-group">
+                    <button type="button" id="backToPage2">Back</button>
+                    <button type="button" id="nextToPage4">Next</button>
+                </div>
+            </div>
+
+            <!-- Page 4: Booking Summary -->
+            <div id="page4" class="modal-page" style="display: none;">
+                <h2>Booking Summary</h2>
+                <div id="bookingSummary"></div>
+                <button type="button" id="backToPage3">Back</button>
+                <button type="submit" id="confirmBooking">Confirm Booking</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section about">
+                <img src="/uploads/logo.png" alt="">
+                <h2>About Us</h2>
+                <p>We are a spa dedicated to providing a peaceful and rejuvenating experience through our professional services and tranquil environment. Visit us to relax, unwind, and recharge.</p>
+            </div>
+    
+            <div class="footer-section links">
+                <h2>Quick Links</h2>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="service.html">Services</a></li>
+                    <li><a href="home.html">About</a></li>
+                    <li><a href="feed.html">Testimonials</a></li>
+                    <li><a href="home.html">Contact</a></li>
+                </ul>
+            </div>
+    
+            <div class="footer-section contact-form">
+                <h2>Contact Us</h2>
+                <p>Facebook: ma-browns-facebook.com</p>
+                <p>Phone: (+63) 939-928-5874 / (+63) 317-178-8827</p>
+                <p>Address: Don Simeon St, Gapan City, Nueva Ecija</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            &copy; 2024 Ma - Brown Studio. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+
+document.addEventListener("DOMContentLoaded", async () => {
+    try {
+        const response = await fetch('/api/page1'); // Fetch user data from /api/page1
+        if (!response.ok) throw new Error("Failed to load page1 data");
+
+        const user = await response.json();
+
+        // Populate modal fields with user data
+        document.getElementById('userName').textContent = user.fullName;
+        document.getElementById('userEmail').textContent = user.email;
+        document.getElementById('userAddress').textContent = user.address;
+        document.getElementById('userContact').textContent = user.contact;a
+
+        // Display modal if user data is loaded successfully
+        document.getElementById('spaModal').style.display = 'block';
+        
+    } catch (error) {
+        console.error("Error loading page1 data:", error);
+        alert("HELLO!");
+    }
+});
+
+
+
+        // Modal functionality
+        const bookNowBtn = document.getElementById('bookNowBtn');
+        const spaModal = document.getElementById('spaModal');
+        const closeModal = document.getElementById('closeModal');
+        bookNowBtn.onclick = () => spaModal.style.display = "block";
+        closeModal.onclick = () => spaModal.style.display = "none";
+        
+        // Modal pages and buttons
+        // JavaScript to handle modal navigation
+    document.getElementById("nextToPage2").addEventListener("click", function() {
+        document.getElementById("page1").style.display = "none";
+        document.getElementById("page2").style.display = "block";
+    });
+
+    document.getElementById("backToPage1").addEventListener("click", function() {
+        document.getElementById("page2").style.display = "none";
+        document.getElementById("page1").style.display = "block";
+    });
+
+    document.getElementById("nextToPage3").addEventListener("click", function() {
+        document.getElementById("page2").style.display = "none";
+        document.getElementById("page3").style.display = "block";
+    });
+
+    document.getElementById("backToPage2").addEventListener("click", function() {
+        document.getElementById("page3").style.display = "none";
+        document.getElementById("page2").style.display = "block";
+    });
+
+    document.getElementById("nextToPage4").addEventListener("click", function() {
+        document.getElementById("page3").style.display = "none";
+        document.getElementById("page4").style.display = "block";
+    });
+
+    document.getElementById("backToPage3").addEventListener("click", function() {
+        document.getElementById("page4").style.display = "none";
+        document.getElementById("page3").style.display = "block";
+    });
+        
+        // Cascading dropdown logic
+        const serviceDropdown = document.getElementById('serviceDropdown');
+        const categoryDropdown = document.getElementById('categoryDropdown');
+        const additionalDropdown = document.getElementById('additionalDropdown');
+        const categoryLabel = document.getElementById('categoryLabel');
+        const additionalLabel = document.getElementById('additionalLabel');
+        
+        // Define the categories and services based on service type
+        const categories = {
+            "brows": ["ComBrows - P6,500", "6D Microblading - P5,500", "Pixel Brows - P7,500"],
+            "eyelash": ["Perming - P300", "Lash Lift with Tint - P500", "Korean Lash Lift - P800", "Classic Eye Lash Refill 1 week - P500", "Celebrity Eyelash Extension - P800"],
+            "makeup": ["Eye Liner - P3,500", "Lip Tint/Lip Blush - P6,500", "Korean BB/CC Glow - P1,800"],
+            "facial": ["Deep Facial Cleaning - P300", "Facial Cleaning with Treatment - P500", "Facial With Diamond Peel - P650"],
+            "pico-laser": ["Face (Basic Facial Cleaning)", "Face (Deep Facial Cleaning)", "Underarm", "Knees/Elbow"],
+            "gluta": ["Premium Gluta Push - P850", "Ultimate Gluta Drip - P1,999", "Radiant Gluta Drip - P1,400"],
+            "wax": ["Eyebrow - P6,500", "Upper Lip - P5,500", "Underarm - P7,500"],
+            "laser": ["Upper Lip - P500", "Underarm - P800", "Arms (half/full) - P800"],
+            "bleaching": ["Nape - P250", "Underarm - P250", "Bikini - P300"],
+            "scrub": ["Signature Body Scrub - P500", "Whitening Body Scrub - P5,500"],
+            "body-shaping": ["Focus RF Face - P80", "Focus RF Tummy - P1,000"],
+            "hand-care": ["Manicure (Regular/Imported)", "Gel Manicure"],
+            "foot-care": ["Pedicure (Regular/Imported) - P100/150", "Premium Foot Spa - P300"],
+            "threading": ["Eye Brow - P100", "Upper Lip - P100", "Chin - P100"],
+            "package1":["Package 1 - P1499", "Packge 2 - P1,799","Packge 3 - P 1,999","Package 4 - 2,499", "Packge 5 - P1,499", "package 6 -P1,999"],
+            "package2":["Package 1 - P1499", "Packge 2 - P1,799","Packge 3 - P 2,499"]
+        };
+        
+        // Service and Category Selection Logic
+        serviceDropdown.addEventListener('change', function() {
+            const selectedService = this.value;
+        
+            if (selectedService) {
+                categoryDropdown.innerHTML = '<option value="">--Select Category--</option>';
+                categories[selectedService].forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category;
+                    option.textContent = category;
+                    categoryDropdown.appendChild(option);
+                });
+        
+                categoryDropdown.style.display = 'block';
+                categoryLabel.style.display = 'block';
+                additionalDropdown.style.display = 'none';
+                additionalLabel.style.display = 'none';
+            } else {
+                categoryDropdown.style.display = 'none';
+                categoryLabel.style.display = 'none';
+                additionalDropdown.style.display = 'none';
+                additionalLabel.style.display = 'none';
+            }
+        });
+        
+        // Update additional dropdown based on category selection
+        categoryDropdown.addEventListener('change', function() {
+            const selectedCategory = this.value;
+        
+            // Gluta category additional options
+            if (["Premium Gluta Push - P850", "Ultimate Gluta Drip - P1,999", "Radiant Gluta Drip - P1,400"].includes(selectedCategory)) {
+              additionalLabel.style.display = 'block';
+              additionalDropdown.style.display = 'block';
+              additionalDropdown.innerHTML = `
+                  <option value="">--Select Additional--</option>
+                  <option value="add-on1">Ultimate Gluta Drip - P1,999</option>
+                  <option value="add-on2">Radiant Gluta Drip - P1,400</option>
+                  <option value="add-on3">Premium Gluta Push - P850</option>
+              `;
+          } 
+          // Facial category additional options
+          else if (["Deep Facial Cleaning - P300", "Facial Cleaning with Treatment - P500", "Facial With Diamond Peel - P650"].includes(selectedCategory)) {
+              additionalLabel.style.display = 'block';
+              additionalDropdown.style.display = 'block';
+              additionalDropdown.innerHTML = `
+                  <option value="">--Select Facial Treatment--</option>
+                  <option value="pdt">PDT Mask - P20</option>
+                  <option value="mask">Treatment Mask - P200</option>
+                  <option value="erum">Serum Booster - P200</option>
+              `;
+            } else {
+                additionalLabel.style.display = 'none';
+                additionalDropdown.style.display = 'none';
+            }
+        });
+        
+        // Open the modal when button is clicked
+        bookNowBtn.addEventListener('click', () => {
+            spaModal.style.display = 'block';
+            resetPages();
+            page1.classList.add('active');
+        });
+        
+        // Close the modal
+        closeModal.addEventListener('click', () => {
+            spaModal.style.display = 'none';
+            resetPages();
+        });
+        
+        // Modal page navigation
+nextToPage2.onclick = () => {
+    page1.style.display = 'none';
+    page2.style.display = 'block';
+};
+
+backToPage1.onclick = () => {
+    page2.style.display = 'none';
+    page1.style.display = 'block';
+};
+
+nextToPage3.onclick = () => {
+    page2.style.display = 'none';
+    page3.style.display = 'block';
+    updateBookingSummary(); // Call to update the summary
+};
+
+backToPage2.onclick = () => {
+    page3.style.display = 'none';
+    page2.style.display = 'block';
+};
+
+nextToPage4.onclick = () => {
+    page3.style.display = 'none';
+    page4.style.display = 'block';
+    updateBookingSummary();  // Call to update the summary
+};
+
+backToPage3.onclick = () => {
+    page4.style.display = 'none';
+    page3.style.display = 'block';
+};
+
+// Make sure to modify your modal and page styles to keep them displayed the right way
+        
+    function updateBookingSummary() {
+        // Implement logic to gather selected services and calculate total price
+        const selectedServices = []; // You need to implement this based on your checkboxes
+        const totalPrice = 0; // Calculate based on selected services
+
+        const userInfo = document.getElementById('userInfo').innerHTML;
+        const summary = `
+            ${userInfo}
+            <h3>Selected Services:</h3>
+            <ul>
+                ${selectedServices.map(service => `<li>${service.name} - ₱${service.price}</li>`).join('')}
+            </ul>
+            <p><strong>Total Price: ₱${totalPrice}</strong></p>
+        `;
+        document.getElementById('bookingSummary').innerHTML = summary;
+    }
+
+    submitBooking.onclick = async () => {
+    // Gather booking details from the modal
+    const bookingData = {
+        userName: document.getElementById('userName').textContent,
+        userEmail: document.getElementById('userEmail').textContent,
+        userAddress: document.getElementById('userAddress').textContent,
+        userContact: document.getElementById('userContact').textContent,
+        selectedServices: [],  // This array will contain the selected service details
+        totalPrice: 0,         // TotalPrice will be calculated
+    };
+
+    // Example of gathering selected services: 
+    // This part will depend on how you handle your services selection, e.g. using checkboxes
+    const selectedServiceValues = Array.from(document.querySelectorAll('input[name="services"]:checked'));
+    selectedServiceValues.forEach(serviceCheckbox => {
+        const serviceName = serviceCheckbox.value; // Assuming value is stored in checkbox
+        const price = serviceCheckbox.dataset.price; // Assuming price is stored as data attribute
+        bookingData.selectedServices.push({ name: serviceName, price: price });
+        bookingData.totalPrice += parseInt(price.replace(/[^0-9]/g, '')); // Ensure to sum prices correctly
+    });
+
+    try {
+        const response = await fetch('/api/book', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(bookingData),
+        });
+
+        if (response.ok) {
+            alert('Booking confirmed!');
+            spaModal.style.display = "none";
+
+            // Optionally, reset the form or modal to initial state if needed
+        } else {
+            alert('Error in booking. Please try again.');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('An error occurred. Please try again.');
+    }
+};
+        
+        // Reset pages
+        function resetPages() {
+            page1.classList.remove('active');
+            page2.classList.remove('active');
+            page3.classList.remove('active');
+            page4.classList.remove('active');
+        }
+
+
+
+        // Show the button when scrolled down 200px
+window.onscroll = function () {
+    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        scrollToTopBtn.style.display = "block";
+    } else {
+        scrollToTopBtn.style.display = "none";
+    }
+};
+
+// Scroll to the top smoothly
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+        </script>
+        
+</body>
+</html>

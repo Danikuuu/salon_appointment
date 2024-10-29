@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Basic reset */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-size: 20px;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #bdac8e;
+            color: #e0e0e0;
+            line-height: 1.5;
+            overflow: hidden;
+        }
+
+        /* Header */
+        header {
+            background-color: #bdac8e;
+            color: #f0f2f5;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Layout */
+        .container {
+            display: flex;
+            height: calc(100vh - 130px);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: rgba(25, 25, 25, 0.95);
+            color: #ddd;
+            width: 240px;
+            padding: 2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+            transition: width 0.3s ease;
+            height: 100vh;
+        }
+
+        .sidebar:hover {
+            width: 260px;
+        }
+
+        .sidebar h2 {
+            color: #bdac8e;
+            font-size: 1.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-picture-container {
+            width: 100px;
+            height: 100px;
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-picture-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 1.5rem;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 1rem;
+        }
+
+        .sidebar ul li a {
+            color: #eee;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            padding: 0.3rem 1.5rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+            font-weight: 500;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #bdac8e;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .sidebar ul li a i {
+            margin-right: 0.5rem;
+        }
+
+        /* Main content */
+        .content {
+            flex: 1;
+            padding: 1.5rem;
+            background: transparent;
+            color: black;
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .active {
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(31, 31, 31, 0.9);
+            color: #f0f2f5;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #bdac8e;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #28a745; /* Green background for success */
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+}
+
+.toast.fade-out {
+    opacity: 0;
+}
+    </style>
+</head>
+
+<body>
+    <% if (success) { %>
+        <div id="toast" class="toast"><%= success %></div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const toast = document.getElementById('toast');
+                toast.className = "toast show";
+                setTimeout(function() {
+                    toast.className = toast.className.replace("show", "");
+                }, 3000); // Hide toast after 3 seconds
+            });
+        </script>
+        <% } %>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Profile</h2>
+            <div class="profile-picture-container" id="profile-picture">
+                <img src="/public/uploads/profile-picture.jpg" alt="Profile Picture" id="profile-img">
+            </div>
+            <ul>
+                <li><a href="#" onclick="document.getElementById('file-input').click();"><i class="fas fa-camera"></i> Choose Profile Picture</a></li>
+                <li><a href="home.html" onclick="showSection('home')"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="#" onclick="showSection('profile')"><i class="fas fa-user-circle"></i> Profile</a></li>
+                <li><a href="#" onclick="showSection('appointments')"><i class="fas fa-calendar-check"></i> My Appointments</a></li>
+                <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+            <input type="file" id="file-input" accept="image/*" style="display:none" onchange="loadProfilePicture(event)">
+        </aside>
+
+        <main class="content">
+            <div id="profile" class="section active">
+                <h1 id="welcome-msg">Welcome!</h1>
+                <h2>Profile Information</h2>
+                <p><strong>Email:</strong> <span id="email"><%= user.email %></span></p>
+                <p><strong>Address:</strong> <span id="address"><%= user.address %></span></p>
+                <p><strong>Contact:</strong> <span id="contact"><%= user.contact %></span></p>
+                <p><strong>Gender:</strong> <span id="gender"><%= user.gender %></span></p>
+            </div>
+            <style>
+                table {
+                    width: 100%; /* Full width */
+                    border-collapse: collapse; /* Collapse borders */
+                    margin-top: 20px; /* Space above the table */
+                }
+            
+                th, td {
+                    padding: 10px; /* Cell padding */
+                    border: 1px solid #ccc; /* Cell border */
+                    text-align: left; /* Align text to the left */
+                }
+            
+                th {
+                    background-color: #f2f2f2; /* Header background color */
+                }
+            
+                tr:hover {
+                    background-color: #f5f5f5; /* Row hover effect */
+                }
+            
+                button {
+                    padding: 5px 10px; /* Button padding */
+                    cursor: pointer; /* Pointer on hover */
+                }
+            </style>
+            <style>
+                .modal {
+                    display: none; /* Hidden by default */
+                    position: fixed; /* Stay in place */
+                    z-index: 1; /* Sit on top */
+                    left: 0;
+                    top: 0;
+                    width: 100%; /* Full width */
+                    height: 100%; /* Full height */
+                    overflow: auto; /* Enable scroll if needed */
+                    background-color: rgb(0,0,0); /* Fallback color */
+                    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                }
+            
+                .modal-content {
+                    background-color: #fefefe;
+                    margin: 15% auto; /* 15% from the top and centered */
+                    padding: 20px;
+                    border: 1px solid #888;
+                    width: 80%; /* Could be more or less, depending on screen size */
+                }
+            
+                .close {
+                    color: #aaa;
+                    float: right;
+                    font-size: 28px;
+                    font-weight: bold;
+                }
+            
+                .close:hover,
+                .close:focus {
+                    color: black;
+                    text-decoration: none;
+                    cursor: pointer;
+                }
+
+                .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe; /* White background */
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888; /* Border */
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 500px; /* Max width */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Shadow */
+}
+
+.close {
+    color: #aaa; /* Close button color */
+    float: right; /* Align close button to the right */
+    font-size: 28px; /* Close button size */
+    font-weight: bold; /* Close button weight */
+}
+
+.close:hover,
+.close:focus {
+    color: black; /* Change color on hover */
+    text-decoration: none; /* No underline */
+    cursor: pointer; /* Pointer cursor */
+}
+
+.modal-content h2 {
+    margin-top: 0; /* Remove top margin from heading */
+}
+
+.field {
+    margin-bottom: 15px; /* Space between fields */
+}
+
+.field label {
+    display: block; /* Label on its own line */
+    margin-bottom: 5px; /* Space below label */
+}
+
+.field input,
+.field textarea,
+.field select {
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding inside fields */
+    border: 1px solid #ccc; /* Border */
+    border-radius: 4px; /* Rounded corners */
+}
+
+.form-buttons {
+    display: flex; /* Flex layout for buttons */
+    justify-content: space-between; /* Space between buttons */
+}
+
+
+            </style>
+            
+            <div id="appointments" class="section">
+                <h2>Your Appointments</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Service</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Notes</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% appointments.forEach(appointment => { %>
+                            <tr>
+                                <td><%= user.fullName %></td>
+                                <td><%= appointment.service %></td>
+                                <td><%= appointment.status %></td>
+                                <td><%= appointment.date.toDateString() %></td>
+                                <td><%= appointment.time %></td>
+                                <td><%= appointment.notes %></td>
+                                <td>
+                                    <button onclick="rescheduleAppointment('<%= appointment._id %>', '<%= appointment.date.toISOString() %>', '<%= appointment.time %>', '<%= appointment.notes %>', '<%= appointment._id %>')">Reschedule</button>
+                                    <form action="/customer/delete-appointment/<%= appointment._id %>" method="post">
+                                        <button type="submit">Cancel</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <div id="rescheduleModal_<%= appointment._id %>" class="modal" style="display: none;">
+                                <div class="modal-content">
+                                    <span class="close" onclick="closeModal('rescheduleModal_<%= appointment._id %>')">&times;</span>
+                                    <h2>Reschedule Appointment</h2>
+                                    <form id="rescheduleForm" action="/customer/reschedule-appointment/" method="post">
+                                        <input type="hidden" id="appointmentId" name="appointmentId" value="<%= appointment._id %>">
+                                
+
+                                        <label for="rescheduleDate">New Date:</label>
+                                        <input type="date" id="rescheduleDate_<%= appointment._id %>" name="rescheduleDate" required>
+                                        
+                                        <label for="rescheduleTime">New Time:</label>
+                                        <input type="time" id="rescheduleTime_<%= appointment._id %>" name="rescheduleTime" required>
+                                        
+                                        <label for="rescheduleNotes">Notes:</label>
+                                        <textarea id="rescheduleNotes_<%= appointment._id %>" name="rescheduleNotes" rows="4"></textarea>
+                                        
+                                        <button type="submit">Confirm Reschedule</button>
+                                    </form>
+                                </div>
+                            </div>
+                            <script>
+                                function rescheduleAppointment(appointmentId, date, time, notes, modalId) {
+                                    // Set the appointment ID in the modal
+                                    document.getElementById('appointmentId').value = appointmentId;
+                    
+                                    // Set the date, time, and notes in the modal
+                                    document.getElementById('rescheduleDate_' + appointmentId).value = date.split('T')[0];
+                                    document.getElementById('rescheduleTime_' + appointmentId).value = time;
+                                    document.getElementById('rescheduleNotes_' + appointmentId).value = notes;
+                    
+                                    // Show the modal
+                                    document.getElementById('rescheduleModal_' + appointmentId).style.display = 'block';
+                                }
+                    
+                                function closeModal(modalId) {
+                                    document.getElementById(modalId).style.display = 'none';
+                                }
+                    
+                                // Close the modal when the user clicks outside of it
+                                window.onclick = function(event) {
+                                    const modals = document.querySelectorAll('.modal');
+                                    modals.forEach(modal => {
+                                        if (event.target === modal) {
+                                            modal.style.display = 'none';
+                                        }
+                                    });
+                                }
+                            </script>
+                        <% }) %>
+                    </tbody>
+                    
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            await fetchProfileData();
+        });
+
+        // Fetch profile data
+        async function fetchProfileData() {
+            try {
+                const response = await fetch('/api/profile');
+                if (!response.ok) throw new Error("Failed to load profile data");
+
+                const user = await response.json();
+                document.getElementById('welcome-msg').textContent = `Welcome, ${user.fullName}!`;
+                document.getElementById('email').textContent = user.email;
+                document.getElementById('address').textContent = user.address;
+                document.getElementById('contact').textContent = user.contact;
+                document.getElementById('gender').textContent = user.gender;
+
+            } catch (error) {
+                console.error("Error loading profile data:", error);
+            }
+        }
+
+        // Fetch appointments
+        async function fetchAppointments() {
+            try {
+                const response = await fetch('/api/appointments');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const userAppointments = await response.json(); // Use meaningful naming
+                const appointmentsList = document.getElementById('appointmentsList');
+                appointmentsList.innerHTML = ''; // Clear existing appointments
+
+                if (userAppointments.length === 0) {
+                    appointmentsList.innerHTML = '<p>No appointments found.</p>';
+                } else {
+                    userAppointments.forEach(appointment => {
+                        const appointmentElement = document.createElement('div');
+                        appointmentElement.className = 'appointment-item';
+                        appointmentElement.innerHTML = `
+                            <p><strong>Service:</strong> ${appointment.serviceId.name}</p>
+                            <p><strong>Date:</strong> ${new Date(appointment.date).toLocaleDateString()}</p>
+                            <p><strong>Time:</strong> ${appointment.time}</p>
+                            <p><strong>Status:</strong> ${appointment.status}</p>
+                        `;
+                        appointmentsList.appendChild(appointmentElement);
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching appointments:', error.message);
+                document.getElementById('appointmentsList').innerHTML =
+                    '<p>Failed to load appointments. Please try again later.</p>';
+            }
+        }
+
+        // Show sections
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+
+            if (sectionId === 'appointments') {
+                fetchAppointments(); // Fetch appointments when this section is shown
+            }
+        }
+
+        // Load profile picture
+        function loadProfilePicture(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profile-img').src = e.target.result;
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+
+<script>
+    function showSection(sectionId) {
+        const sections = document.querySelectorAll('.section');
+        sections.forEach(section => section.classList.remove('active'));
+        document.getElementById(sectionId).classList.add('active');
+
+        if (sectionId === 'appointments') {
+            fetchAppointments(); // Fetch appointments when this section is shown
+        }
+    }
+
+    async function fetchAppointments() {
+        try {
+            const response = await fetch('/customer/appointments'); // Adjust the URL as needed
+            const appointments = await response.json();
+            const appointmentList = document.getElementById('appointmentList');
+
+            appointmentList.innerHTML = ''; // Clear the list before displaying new data
+            appointments.forEach(appointment => {
+                const div = document.createElement('div');
+                div.textContent = `Service: ${appointment.service}, Date: ${appointment.date}, Time: ${appointment.time}`;
+                appointmentList.appendChild(div);
+            });
+        } catch (error) {
+            console.error('Error fetching appointments:', error);
+        }
+    }
+</script>
+
+
+</body>
+</html>

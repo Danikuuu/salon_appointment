@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .header {
+            padding: 20px;
+            margin: 0;
+            background-color: #343a40;
+            color: #ffffff;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .sidebar {
+            background: rgba(25, 25, 25, 0.95);
+            color: #ddd;
+            width: 240px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 2rem 1rem;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+            transition: width 0.3s ease;
+        }
+        .sidebar h2 {
+            color: #bdac8e;
+            text-align: center;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 1rem;
+        }
+        .sidebar ul li a {
+            color: #eee;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        .sidebar ul li a:hover {
+            background-color: #bdac8e;
+            color: #fff;
+        }
+        .dropdown {
+            display: none; /* Hidden by default */
+            margin-left: 1rem; /* Indent dropdown items */
+        }
+        .content {
+            margin-left: 240px;
+            padding: 20px;
+        }
+        .card {
+            margin: 20px 0;
+        }
+        .chart-container {
+            position: relative;
+            margin: 20px 0;
+            height: 400px; /* Fixed height to prevent automatic resizing */
+        }
+        .chart-title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .appointments-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.appointments-table th, .appointments-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.appointments-table th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.appointments-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.action-button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.reschedule {
+    background-color: #2196F3;
+}
+
+.cancel {
+    background-color: #f44336;
+}
+
+.change {
+    background-color: #FF9800;
+}
+
+.approve {
+    background-color: #1f5bff;
+}
+
+.action-button:hover {
+    opacity: 0.8;
+}
+
+    </style>
+</head>
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+    <h2>Admin</h2>
+    <ul>
+        <li><a href="#" onclick="showSection('dashboard')"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+        <li><a href="#" onclick="showSection('profile')"><i class="fas fa-user-circle"></i> Profile</a></li>
+        <li>
+            <a href="#" onclick="toggleDropdown(event)"><i class="fas fa-calendar-check"></i> Appointment Management <i class="fas fa-chevron-down"></i></a>
+            <div class="dropdown">
+                <a href="#" onclick="showSection('service-management')">Service Management</a><br>
+                <a href="#" onclick="showSection('appointments')">Appointments</a><br>
+                <a href="#" onclick="showSection('manage-appointments')">Manage Appointments</a><br>
+                <a href="#" onclick="showSection('add-appointments')">Add Appointments</a>
+            </div>
+        </li>
+        <li><a href="#" onclick="showSection('feedback')"><i class="fas fa-comment-dots"></i> Feedbacks</a></li>
+        <li><a href="/login"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+</aside>
+
+<!-- Main Content -->
+<div class="content">
+    <!-- Dashboard Section -->
+    <div id="dashboard" class="section active">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <label for="timeFilter">Select Time Period:</label>
+                <select id="timeFilter" onchange="filterData(this.value)">
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                    <option value="annually">Annually</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5>Total Customers</h5>
+                        <h2 id="totalUsers"><%= totalUsers %></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5>Total Appointments</h5>
+                        <h2 id="totalAppointments"><%= totalAppointments %></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5>Total Feedbacks</h5>
+                        <h2 id="totalFeedback"><%= feedbackCount %></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Today's Statistics -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5>Feedbacks Today</h5>
+                        <h2 id="feedbacksToday"><%= feedbacksToday %></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h5>Appointments Today</h5>
+                        <h2 id="appointmentsToday"><%= appointmentsToday %></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <div class="chart-title">Total Users Chart</div>
+                    <canvas id="totalUsersChart"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <div class="chart-title">Total Feedbacks Chart</div>
+                    <canvas id="totalFeedbackChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Other sections can be added like this -->
+    <div id="profile" class="section" style="display:none;">
+        <h2>Your Profile</h2>
+        <div>
+            <%= admin.email %>
+        </div>
+    </div>
+    <div id="service-management" class="section" style="display:none;">
+        <h2>Manage Services</h2>
+        <!-- Service management content goes here -->
+    </div>
+    <div id="appointments" class="section" style="display:none;">
+        <h2>Your Appointments</h2>
+        <div>
+            <table class="appointments-table">
+                <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Service</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% appointments.forEach(appointment => { %>
+                        <tr>
+                            <td><%= appointment.customerId.fullName %></td> 
+                            <td><%= appointment.service %></td>
+                            <td><%= appointment.status %></td>
+                            <td><%= appointment.date.toDateString() %></td>
+                            <td><%= appointment.time %></td>
+                            <td><%= appointment.notes %></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+            
+        </div>
+    </div>
+    <div id="manage-appointments" class="section" style="display:none;">
+        <h2>Appointments List</h2>
+        <div>
+            <table class="appointments-table">
+                <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Service</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Notes</th>
+                        <th>Actions</th> <!-- New column for action buttons -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <% appointments.forEach(appointment => { %>
+                        <tr>
+                            <td><%= appointment.customerId.fullName %></td> 
+                            <td><%= appointment.service %></td>
+                            <td><%= appointment.status %></td>
+                            <td><%= appointment.date.toDateString() %></td>
+                            <td><%= appointment.time %></td>
+                            <td><%= appointment.notes %></td>
+                            <td>
+                                <button class="action-button reschedule" 
+                                    onclick="location.href='/appointments/reschedule/<%= appointment._id %>'" 
+                                    <% if (appointment.status === 'for approval') { %> disabled <% } %>
+                                >
+                                    Reschedule
+                                </button>
+                                <button class="action-button cancel" 
+                                    onclick="location.href='/appointments/cancel/<%= appointment._id %>'" 
+                                    <% if (appointment.status === 'for approval') { %> disabled <% } %>
+                                >
+                                    Cancel
+                                </button>
+                                <button class="action-button approve" 
+                                    onclick="location.href='/appointments/change/<%= appointment._id %>'" 
+                                    <% if (appointment.status !== 'for approval') { %> disabled <% } %>
+                                >
+                                    Approve
+                                </button>
+                            </td>
+                            
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div id="add-appointments" class="section" style="display:none;">
+        <h2>Create New Appointment</h2>
+                <form id="bookingForm" action="/admin/add-booking" method="post">
+                    <!-- Page 1: User Information -->
+                    <div id="page1" class="modal-page">
+                        <h2>User Information</h2>
+                        <label for="customerSelect">Select Customer:</label>
+                        <select id="customerSelect" name="customerId" onchange="populateUserData()">
+                            <option value="">--Select a Customer--</option>
+                            <% users.forEach(user => { %>
+                                <option value="<%= user._id %>" data-fullname="<%= user.fullName %>" data-email="<%= user.email %>" data-address="<%= user.address %>" data-contact="<%= user.contact %>">
+                                    <%= user.fullName %>
+                                </option>
+                            <% }) %>
+                        </select>
+                    
+                        <input type="hidden" name="id" value="">
+                    
+                        <label for="userName">Name:</label>
+                        <input type="text" id="userName" name="userName" required readonly>
+                    
+                        <label for="userEmail">Email:</label>
+                        <input type="email" id="userEmail" name="userEmail" required readonly>
+                    
+                        <label for="userAddress">Address:</label>
+                        <input type="text" id="userAddress" name="userAddress" readonly>
+                    
+                        <label for="userContact">Contact:</label>
+                        <input type="tel" id="userContact" name="userContact" required readonly>
+                    
+                        <button type="button" id="nextToPage2">Next</button>
+                    </div>
+                    
+                    <script>
+                    function populateUserData() {
+                        const select = document.getElementById('customerSelect');
+                        const selectedOption = select.options[select.selectedIndex];
+                    
+                        if (selectedOption.value) {
+                            document.querySelector('input[name="id"]').value = selectedOption.value;
+                            document.getElementById('userName').value = selectedOption.getAttribute('data-fullname');
+                            document.getElementById('userEmail').value = selectedOption.getAttribute('data-email');
+                            document.getElementById('userAddress').value = selectedOption.getAttribute('data-address');
+                            document.getElementById('userContact').value = selectedOption.getAttribute('data-contact');
+                        } else {
+                            // Clear the input fields if no customer is selected
+                            document.querySelector('input[name="id"]').value = '';
+                            document.getElementById('userName').value = '';
+                            document.getElementById('userEmail').value = '';
+                            document.getElementById('userAddress').value = '';
+                            document.getElementById('userContact').value = '';
+                        }
+                    }
+                    </script>
+                    
+        
+                    <!-- Page 2: Select Services -->
+                    <div id="page2" class="modal-page" style="display: none;">
+                        <h2>Select Services</h2>
+                        <p>Select a service and category.</p>
+        
+                        <label for="serviceDropdown">Select Service:</label>
+                        <select id="serviceDropdown" name="service" required>
+                            <option value="">--Select Service--</option>
+                            <option value="brows">EyeBrows</option>
+                            <option value="makeup">Semi Permanent Makeup</option>
+                            <option value="facial">Facial Treatment</option>
+                            <option value="pico-laser">Black Doll/Pico Laser</option>
+                            <option value="gluta">Glutathiones</option>
+                            <option value="wax">Waxing</option>
+                            <option value="laser">Hair Laser</option>
+                            <option value="bleaching">Body Bleaching</option>
+                            <option value="scrub">Scrub</option>
+                            <option value="body-shaping">Body Shaping</option>
+                            <option value="hand-care">Hand Care</option>
+                            <option value="foot-care">Foot Care</option>
+                            <option value="eyelash">Eyelash</option>
+                            <option value="threading">Threading</option> 
+                            <option value="package1">Black Doll Peel Package</option> 
+                            <option value="package2">Contour Face and Body Package</option>
+                        </select>
+        
+                        <label for="categoryDropdown" id="categoryLabel" style="display: none;">Select Category:</label>
+                        <select id="categoryDropdown" name="category" style="display: none;"></select>
+        
+                        <label for="additionalDropdown" id="additionalLabel" style="display: none;">Select Additional:</label>
+                        <select id="additionalDropdown" name="additional" style="display: none;"></select>
+        
+                        <div class="button-group">
+                            <button type="button" id="backToPage1">Back</button>
+                            <button type="button" id="nextToPage3">Next</button>
+                        </div>
+                    </div>
+        
+                    <!-- Page 3: Appointment Details -->
+                    <div id="page3" class="modal-page" style="display: none;">
+                        <h2>Appointment Details</h2>
+                        <label for="appointmentDate">Appointment Date:</label>
+                        <input type="date" id="appointmentDate" name="appointmentDate" required>
+        
+                        <label for="appointmentTime">Appointment Time:</label>
+                        <input type="time" id="appointmentTime" name="appointmentTime" required>
+        
+                        <label for="appointmentNotes">Notes:</label>
+                        <textarea id="appointmentNotes" name="appointmentNotes" rows="4" placeholder="Enter any notes here"></textarea>
+        
+                        <div class="button-group">
+                            <button type="button" id="backToPage2">Back</button>
+                            <button type="button" id="nextToPage4">Next</button>
+                        </div>
+                    </div>
+        
+                    <!-- Page 4: Booking Summary -->
+                    <div id="page4" class="modal-page" style="display: none;">
+                        <h2>Booking Summary</h2>
+                        <div id="bookingSummary"></div>
+                        <button type="button" id="backToPage3">Back</button>
+                        <button type="submit" id="confirmBooking">Confirm Booking</button>
+                    </div>
+                </form>
+    </div>
+    <div id="feedback" class="section" style="display:none;">
+        <h2>User Feedbacks</h2>
+        <!-- Feedbacks content goes here -->
+    </div>
+</div>
+
+<script>
+    // Total Users Chart
+    const usersCtx = document.getElementById('totalUsersChart').getContext('2d');
+    const initialTotalUsersData = [<%= totalUsers %>];
+    const totalUsersChart = new Chart(usersCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Total Users'],
+            datasets: [{
+                label: 'Total Users',
+                data: initialTotalUsersData,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                datalabels: {
+                    align: 'center',
+                    anchor: 'center',
+                    formatter: (value) => value,
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: "#eaeaea",
+                    }
+                }
+            }
+        }
+    });
+
+    // Total Feedbacks Chart
+    const feedbacksCtx = document.getElementById('totalFeedbackChart').getContext('2d');
+    const initialTotalFeedbacksData = [<%= feedbackCount %>];
+    const totalFeedbackChart = new Chart(feedbacksCtx, {
+        type: 'line',
+        data: {
+            labels: ['Total Feedbacks'],
+            datasets: [{
+                label: 'Total Feedbacks',
+                data: initialTotalFeedbacksData,
+                borderColor: 'rgba(255, 99, 132, 1)',
+                tension: 0.4,
+                fill: false
+            }]
+        },
+        options: {
+            plugins: {
+                datalabels: {
+                    align: 'top',
+                    anchor: 'end',
+                    formatter: (value) => value,
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: "#eaeaea",
+                    }
+                }
+            }
+        }
+    });
+
+    // Function to toggle sections
+    function showSection(sectionId) {
+        // Hide all sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.display = 'none';
+        });
+        // Show the selected section
+        document.getElementById(sectionId).style.display = 'block';
+    }
+
+    // Toggle dropdown in the sidebar
+    function toggleDropdown(event) {
+        const dropdown = event.target.nextElementSibling;
+        dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+</script>
+
+<script>
+    async function filterData(period) {
+    const response = await fetch(`/admin/stats/${period}`);
+    const data = await response.json();
+
+    document.getElementById('totalUsers').innerText = data.totalUsers;
+    document.getElementById('totalAppointments').innerText = data.totalAppointments;
+    document.getElementById('totalFeedback').innerText = data.feedbackCount;
+
+    // Optionally, update your charts here
+    updateCharts(data);
+}
+
+function updateCharts(data) {
+    // Example: update your charts with new data
+    totalUsersChart.data.datasets[0].data = [data.totalUsers];
+    totalUsersChart.update();
+
+    totalFeedbackChart.data.datasets[0].data = [data.feedbackCount];
+    totalFeedbackChart.update();
+}
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

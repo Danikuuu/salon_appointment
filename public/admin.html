@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Basic reset */
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+    
+        body {
+          font-family: 'Arial', sans-serif;
+          background-color: #bdac8e;
+          color: #e0e0e0;
+          line-height: 1.5;
+          overflow: hidden;
+        }
+    
+        /* Layout */
+        .container {
+          display: flex;
+          height: calc(130vh - 130px);
+        }
+    
+        /* Sidebar */
+        .sidebar {
+          background: rgba(25, 25, 25, 0.95);
+          color: #ddd;
+          width: 240px;
+          padding: 2rem 1rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+          transition: width 0.3s ease;
+          height: 100vh;
+        }
+    
+        .sidebar:hover {
+          width: 260px;
+        }
+    
+        .sidebar h2 {
+          color: #bdac8e;
+          text-align: center;
+          font-size: 1.6rem;
+          margin-bottom: 1.5rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+    
+        .sidebar ul {
+          list-style-type: none;
+          padding: 0;
+          margin-bottom: 150%;
+        }
+    
+        .sidebar ul li {
+          margin-bottom: 1rem;
+        }
+    
+        .sidebar ul li a {
+          color: #eee;
+          text-decoration: none;
+          display: flex;
+          align-items: center;
+          padding: 0.3rem 1.5rem;
+          border-radius: 5px;
+          transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, font-size 0.3s ease;
+          font-weight: 500;
+          position: relative;
+        }
+    
+        .sidebar ul li a:hover {
+          background-color: #bdac8e;
+          color: #fff;
+          transform: scale(1.05);
+        }
+    
+        .sidebar ul li a i {
+          margin-right: 0.5rem;
+        }
+      
+    
+        /* Dropdown */
+        .dropdown {
+          display: none;
+          padding-left: 1rem;
+        }
+    
+        .dropdown a {
+          padding: 0.5rem 1.5rem;
+          display: block;
+          transition: background-color 0.3s ease;
+        }
+    
+        .dropdown a:hover {
+          background-color: #bdac8e;
+        }
+    
+        /* Main content */
+        .content {
+          flex: 1;
+          padding: 1.5rem;
+          background: transparent;
+          margin: 0.5rem;
+          color: black;
+          overflow-y: auto;
+          height: 92%;
+        }
+    
+        .section {
+          display: none;
+        }
+    
+        .active {
+          display: block;
+          flex-wrap: nowrap;
+        }
+    
+        /* Footer */
+        footer {
+          background: rgba(31, 31, 31, 0.9);
+          color: #f0f2f5;
+          text-align: center;
+          padding: 1rem;
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+          box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
+        }
+    
+        /* Transitions */
+        .fade-in {
+          animation: fadeIn 0.5s ease-in-out;
+        }
+    
+        @keyframes fadeIn {
+          0% {
+            opacity: 0;
+          }
+    
+          100% {
+            opacity: 1;
+          }
+        }
+    
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+          .container {
+            flex-direction: column;
+            height: auto;
+          }
+    
+          .sidebar {
+            width: 100%;
+            height: auto;
+          }
+    
+          .content {
+            margin: 1rem 0;
+          }
+        }
+    
+        /* Card Styles */
+        .card {
+          background: rgba(255, 255, 255, 0.9);
+          border-radius: 8px;
+          padding: 1.5rem;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          margin-bottom: 1rem;
+        }
+    
+        .card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+    
+        /* Section Background */
+        .section {
+          background-color: white;
+          border-radius: 10px;
+          margin-top: -2%;
+        }
+    
+        /* Analytics Box */
+        .analytics-container {
+          background: rgba(250, 250, 250, 0.8); /* Light background to stand out */
+          padding: 20px;
+        }
+    
+        .analytics {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+          justify-content: space-between; /* Space out analytics cards */
+        }
+    
+        .analytics-card {
+          box-sizing: border-box;
+          background-color: #f9f9f9;
+          border-radius: 8px;
+          padding: 1rem;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+          flex: 1 1 calc(33.333% - 1rem);
+          text-align: center;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+    
+        .analytics-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+    
+        .chart-container {
+          flex: 1 1 100%;
+          margin-bottom: 1rem;
+        }
+    
+        .large-chart {
+          display: flex;
+          margin: 50px 50px;
+          flex-direction: column;
+          align-items: center;
+        }
+    
+        .small-charts {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+        }
+    
+        .small-chart {
+          flex: 1 1 30%;
+          height: 250px;
+          padding-top: 10px;
+          padding-bottom: 10px;
+          margin-right: 10px;
+          padding: 5px;
+          margin-left: 10px;
+          margin-bottom: 10px;
+          border-radius: 8px; /* Rounded corners for charts */
+          overflow: hidden; /* Hide overflow for rounded corners */
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+          transition: transform 0.3s ease;
+        }
+    
+        .small-chart:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+        }
+    
+        @media (max-width: 768px) {
+          .size-adjust {
+            flex: 1 1 100%;
+          }
+    
+          .small-chart {
+            flex: 1 1 100%;
+            height: 200px;
+          }
+        }
+    
+        .content h1{
+          font-size: 40px;
+          padding-top: 20px;
+          margin-left: 25px;
+        }
+      </style>
+</head>
+
+<body>
+    <div class="container" id="mainContainer"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('mainContainer');
+
+            // Sidebar
+            const sidebar = document.createElement('aside');
+            sidebar.classList.add('sidebar');
+            sidebar.innerHTML = `
+                <h2>Admin</h2>
+                <ul>
+                    <li><a href="#" onclick="showSection('dashboard')"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#" onclick="showSection('profile')"><i class="fas fa-user-circle"></i> Profile</a></li>
+                    <li>
+                        <a href="#" onclick="toggleDropdown(event)"><i class="fas fa-calendar-check"></i> Appointment Management <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown">
+                            <a href="#" onclick="showSection('service-management')">Service Management</a>
+                            <a href="#" onclick="showSection('appointments')">Appointments</a>
+                            <a href="#" onclick="showSection('manage-appointments')">Manage Appointments</a>
+                            <a href="#" onclick="showSection('add-appointments')">Add Appointments</a>
+                        </div>
+                    </li>
+                    <li><a href="#" onclick="showSection('feedback')"><i class="fas fa-comment-dots"></i> Feedbacks</a></li>
+                    <li><a href="/login"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                </ul>
+            `;
+            container.appendChild(sidebar);
+
+            // Main Content
+            const content = document.createElement('main');
+            content.classList.add('content');
+
+            // Sections
+            const sections = [
+                { id: 'dashboard', title: 'Welcome to the Dashboard', content: `
+                    <div class="analytics-container">
+                        <div class="analytics">
+                            <div class="analytics-card">
+                                <h2>Appointments Today</h2>
+                                <p id="appointmentsToday">0</p>
+                            </div>
+                            <div class="analytics-card">
+                                <h2>Most Availed Services</h2>
+                                <p id="mostAvailedServices">Loading...</p>
+                            </div>
+                            <div class="analytics-card">
+                                <h2>Feedbacks Today</h2>
+                                <p id="feedbacksCount">0</p>
+                            </div>
+                            <div class="analytics-card">
+                                <h2>Total Appointments</h2>
+                                <p id="totalAppointments">0</p>
+                            </div>
+                            <div class="analytics-card">
+                                <h2>Total Users</h2>
+                                <p id="totalUsers">0</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-container large-chart">
+                        <canvas id="appointmentsChart" style="height: 100px; width: 100%;"></canvas>
+                    </div>
+                    <div class="chart-container small-charts">
+                        <div class="small-chart">
+                            <canvas id="servicesChart" style="height: 200px; width: 100%;"></canvas>
+                        </div>
+                        <div class="small-chart">
+                            <canvas id="feedbacksChart" style="height: 200px; width: 100%;"></canvas>
+                        </div>
+                        <div class="small-chart">
+                            <canvas id="appointmentsWeekMonthChart" style="height: 200px; width: 100%;"></canvas>
+                        </div>
+                    </div>
+                `},
+                { id: 'profile', title: 'Profile Information', content: `
+                    <div class="card">
+                        <h2>Your Profile</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Email</th>
+                                    <th>Password</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="email" id="profileEmail" /></td>
+                                    <td><input type="password" id="profilePassword" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `},
+                { id: 'service-management', title: 'Service Management', content: `
+                    <div class="card">
+                        <h2>Manage Services</h2>
+                        <p>Overview of all services you can manage.</p>
+                    </div>
+                `},
+                { id: 'appointments', title: 'Appointments Overview', content: `
+                    <div class="card">
+                        <h2>Your Appointments</h2>
+                        <p>Manage your appointments here.</p>
+                    </div>
+                `},
+                { id: 'manage-appointments', title: 'Manage Appointments', content: `
+                    <div class="card">
+                        <h2>Appointments List</h2>
+                        <p>Overview of all appointments you can manage.</p>
+                    </div>
+                `},
+                { id: 'add-appointments', title: 'Add New Appointments', content: `
+                    <div class="card">
+                        <h2>Create New Appointment</h2>
+                        <p>Fill out the form to add a new appointment.</p>
+                    </div>
+                `},
+                { id: 'feedback', title: 'Feedbacks Overview', content: `
+                    <div class="card">
+                        <h2>User Feedbacks</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Message</th>
+                                    <th>Rating</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody id="feedbacksTableBody">
+                                <!-- Feedback rows will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                `}
+            ];
+
+            sections.forEach(section => {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.id = section.id;
+                sectionDiv.classList.add('section');
+                sectionDiv.innerHTML = `<h1>${section.title}</h1>${section.content}`;
+                content.appendChild(sectionDiv);
+            });
+
+            container.appendChild(content);
+
+            // Function to toggle dropdown visibility
+            window.toggleDropdown = function (event) {
+                const dropdown = event.target.nextElementSibling;
+                dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            }
+
+            // Show a specific section
+            window.showSection = function (sectionId) {
+                document.querySelectorAll('.section').forEach(section => {
+                    section.classList.remove('active');
+                });
+                document.getElementById(sectionId).classList.add('active');
+            }
+
+            // Sample data for charts
+            const appointmentsData = [12, 19, 3, 5, 2, 3];
+            const servicesData = [15, 10, 7];
+            const feedbacksData = [4, 5, 6, 8, 2, 9];
+
+            // Initialize charts
+            const appointmentsChartCtx = document.getElementById('appointmentsChart').getContext('2d');
+            new Chart(appointmentsChartCtx, {
+                type: 'line',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                    datasets: [{
+                        label: 'Appointments Over Time',
+                        data: appointmentsData,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+
+            const servicesChartCtx = document.getElementById('servicesChart').getContext('2d');
+            new Chart(servicesChartCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Pedecure', 'Lip Tint/Lip Blush', 'Underarm Hair Removal'],
+                    datasets: [{
+                        label: 'Most Availed Services',
+                        data: servicesData,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.4)',
+                            'rgba(54, 162, 235, 0.4)',
+                            'rgba(255, 206, 86, 0.4)'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+
+            const feedbacksChartCtx = document.getElementById('feedbacksChart').getContext('2d');
+            new Chart(feedbacksChartCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                    datasets: [{
+                        label: 'Feedbacks Received',
+                        data: feedbacksData,
+                        backgroundColor: 'rgba(153, 102, 255, 0.6)'
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
+
+            const appointmentsWeekMonthChartCtx = document.getElementById('appointmentsWeekMonthChart').getContext('2d');
+new Chart(appointmentsWeekMonthChartCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Week', 'Month'],
+        datasets: [{
+            label: 'Appointments',
+            data: [30, 120],
+            backgroundColor: [
+                'rgba(255, 159, 64, 0.6)',
+                'rgba(75, 192, 192, 0.6)'
+            ]
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            title: {
+                display: true,
+                text: 'Appointments Distribution: Week vs Month',
+                font: {
+                    size: 15 // Set the font size of the title
+                },
+                padding: {
+                    top: 20,
+                    bottom: 20
+                }
+            }
+        }
+    }
+});
+
+            // Initialize the sections by showing the dashboard first
+            showSection('dashboard');
+
+            // Function to fetch analytics data (mock example)
+            async function fetchAnalyticsData() {
+                try {
+                    // Simulate fetching data
+                    const data = {
+                        appointmentsToday: Math.floor(Math.random() * 100),
+                        feedbacksToday: Math.floor(Math.random() * 10),
+                        totalAppointments: Math.floor(Math.random() * 1000),
+                        totalUsers: Math.floor(Math.random() * 500),
+                        mostAvailedServices: [
+                            { name: 'Pedecure', count: 30 },
+                            { name: 'Lip Tint/Lip Blush', count: 20 },
+                            { name: 'Underarm Hair Removal', count: 20 }
+                        ]
+                    };
+
+                    // Update the DOM with info
+                    document.getElementById('appointmentsToday').textContent = data.appointmentsToday;
+                    document.getElementById('feedbacksCount').textContent = data.feedbacksToday;
+                    document.getElementById('totalAppointments').textContent = data.totalAppointments;
+                    document.getElementById('totalUsers').textContent = data.totalUsers;
+                    document.getElementById('mostAvailedServices').textContent = data.mostAvailedServices.map(service => `${service.name}: ${service.count}`).join(', ');
+                } catch (error) {
+                    console.error('Error fetching analytics data:', error);
+                }
+            }
+
+            // Fetch analytics data on page load
+            fetchAnalyticsData();
+        });
+    </script>
+</body>
+
+</html>

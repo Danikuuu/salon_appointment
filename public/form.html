@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPA Appointment Booking</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal-page {
+            display: none;
+        }
+        .modal-page.active {
+            display: block;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        select, input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #openModalBtn {
+            display: block;
+            margin: 20px auto;
+            font-size: 18px;
+        }
+        .confirmation-details {
+            background-color: #e9e9e9;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .confirmation-details p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <button id="openModalBtn">Book Spa Appointment</button>
+
+    <div id="spaModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <div id="page1" class="modal-page active">
+                <h2>Select Spa Service</h2>
+                <select id="serviceDropdown">
+                    <option value="">--Select Service--</option>
+                    <option value="spa">Spa Services</option>
+                    <option value="salon">Salon Services</option>
+                </select>
+
+                <select id="categoryDropdown" style="display: none;">
+                    <!-- Options filled dynamically -->
+                </select>
+
+                <select id="serviceSpecificDropdown" style="display: none;">
+                    <!-- Options filled dynamically -->
+                </select>
+
+                <div class="button-group">
+                    <span></span>
+                    <button id="nextToPage2">Next</button>
+                </div>
+            </div>
+
+            <div id="page2" class="modal-page">
+                <h2>Choose Appointment Time</h2>
+                <label for="appointmentDate">Date:</label>
+                <input type="date" id="appointmentDate" required>
+
+                <label for="appointmentTime">Time:</label>
+                <input type="time" id="appointmentTime" required>
+
+                <label for="appointmentNotes">Additional Notes:</label>
+                <textarea id="appointmentNotes" rows="4"></textarea>
+
+                <div class="button-group">
+                    <button id="prevToPage1">Previous</button>
+                    <button id="nextToPage3">Next</button>
+                </div>
+            </div>
+
+            <div id="page3" class="modal-page">
+                <h2>Confirm Your Booking</h2>
+                <div class="confirmation-details">
+                    <p><strong>Service:</strong> <span id="confirmService"></span></p>
+                    <p><strong>Category:</strong> <span id="confirmCategory"></span></p>
+                    <p><strong>Specific Service:</strong> <span id="confirmSpecificService"></span></p>
+                    <p><strong>Date:</strong> <span id="confirmDate"></span></p>
+                    <p><strong>Time:</strong> <span id="confirmTime"></span></p>
+                    <p><strong>Notes:</strong> <span id="confirmNotes"></span></p>
+                </div>
+                <div class="button-group">
+                    <button id="prevToPage2">Previous</button>
+                    <button id="confirmBtn" action="/public/service.html">Confirm Booking</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('spaModal');
+        const openModalBtn = document.getElementById('openModalBtn');
+        const closeBtn = document.getElementsByClassName('close')[0];
+        const page1 = document.getElementById('page1');
+        const page2 = document.getElementById('page2');
+        const page3 = document.getElementById('page3');
+        const nextToPage2 = document.getElementById('nextToPage2');
+        const nextToPage3 = document.getElementById('nextToPage3');
+        const prevToPage1 = document.getElementById('prevToPage1');
+        const prevToPage2 = document.getElementById('prevToPage2');
+        const confirmBtn = document.getElementById('confirmBtn');
+
+        const serviceDropdown = document.getElementById('serviceDropdown');
+        const categoryDropdown = document.getElementById('categoryDropdown');
+        const serviceSpecificDropdown = document.getElementById('serviceSpecificDropdown');
+
+        const categories = {
+            "spa": ["Massage", "Facial", "Body Treatments"],
+            "salon": ["Hair Removal", "Nail Care", "Hair Treatments"]
+        };
+
+        const services = {
+            "Massage": ["Swedish Massage", "Deep Tissue Massage", "Aromatherapy Massage"],
+            "Facial": ["Basic Facial", "Anti-Aging Facial", "Hydrating Facial"],
+            "Body Treatments": ["Body Scrub", "Body Wrap", "Detox Treatment"],
+            "Hair Removal": ["Brazilian Wax", "Laser Hair Removal", "Threading"],
+            "Nail Care": ["Manicure", "Pedicure", "Gel Polish"],
+            "Hair Treatments": ["Hair Cut", "Hair Coloring", "Keratin Treatment"]
+        };
+
+        openModalBtn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        closeBtn.onclick = function() {
+            modal.style.display = "none";
+            resetForm();
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                resetForm();
+            }
+        }
+
+        serviceDropdown.addEventListener('change', function() {
+            categoryDropdown.innerHTML = '<option value="">--Select Category--</option>';
+            serviceSpecificDropdown.innerHTML = '<option value="">--Select Specific Service--</option>';
+            categoryDropdown.style.display = this.value ? 'block' : 'none';
+            serviceSpecificDropdown.style.display = 'none';
+
+            if (this.value) {
+                categories[this.value].forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category;
+                    option.textContent = category;
+                    categoryDropdown.appendChild(option);
+                });
+            }
+        });
+
+        categoryDropdown.addEventListener('change', function() {
+            serviceSpecificDropdown.innerHTML = '<option value="">--Select Specific Service--</option>';
+            serviceSpecificDropdown.style.display = this.value ? 'block' : 'none';
+
+            if (this.value) {
+                services[this.value].forEach(service => {
+                    const option = document.createElement('option');
+                    option.value = service;
+                    option.textContent = service;
+                    serviceSpecificDropdown.appendChild(option);
+                });
+            }
+        });
+
+        nextToPage2.onclick = function() {
+            if (validatePage1()) {
+                page1.classList.remove('active');
+                page2.classList.add('active');
+            }
+        }
+
+        nextToPage3.onclick = function() {
+            if (validatePage2()) {
+                updateConfirmationPage();
+                page2.classList.remove('active');
+                page3.classList.add('active');
+            }
+        }
+
+        prevToPage1.onclick = function() {
+            page2.classList.remove('active');
+            page1.classList.add('active');
+        }
+
+        prevToPage2.onclick = function() {
+            page3.classList.remove('active');
+            page2.classList.add('active');
+        }
+
+        confirmBtn.onclick = function() {
+    const formData = {
+        service: serviceDropdown.value,
+        category: categoryDropdown.value,
+        specificService: serviceSpecificDropdown.value,
+        date: document.getElementById('appointmentDate').value,
+        time: document.getElementById('appointmentTime').value,
+        notes: document.getElementById('appointmentNotes').value || 'No additional notes'
+    };
+
+    saveAppointmentToLocalStorage(formData);
+
+    alert('Booking Confirmed!');
+    modal.style.display = "none";
+    resetForm();
+};
+
+function saveAppointmentToLocalStorage(formData) {
+    // Retrieve existing appointments from localStorage
+    let appointments = JSON.parse(localStorage.getItem('servicesCollection')) || [];
+
+    // Add the new appointment
+    appointments.push(formData);
+
+    // Save updated appointments back to localStorage
+    localStorage.setItem('servicesCollection', JSON.stringify(appointments));
+}
+
+// Function to validate page 1
+function validatePage1() {
+    if (!serviceDropdown.value || !categoryDropdown.value || !serviceSpecificDropdown.value) {
+        alert('Please select all service options.');
+        return false;
+    }
+    return true;
+}
+
+// Function to validate page 2
+function validatePage2() {
+    if (!document.getElementById('appointmentDate').value || !document.getElementById('appointmentTime').value) {
+        alert('Please select both date and time for your appointment.');
+        return false;
+    }
+    return true;
+}
+
+// Function to update the confirmation page
+function updateConfirmationPage() {
+    document.getElementById('confirmService').textContent = serviceDropdown.value;
+    document.getElementById('confirmCategory').textContent = categoryDropdown.value;
+    document.getElementById('confirmSpecificService').textContent = serviceSpecificDropdown.value;
+    document.getElementById('confirmDate').textContent = document.getElementById('appointmentDate').value;
+    document.getElementById('confirmTime').textContent = document.getElementById('appointmentTime').value;
+    document.getElementById('confirmNotes').textContent = document.getElementById('appointmentNotes').value || 'No additional notes';
+}
+
+// Reset form function
+function resetForm() {
+    serviceDropdown.value = '';
+    categoryDropdown.value = '';
+    serviceSpecificDropdown.value = '';
+    categoryDropdown.style.display = 'none';
+    serviceSpecificDropdown.style.display = 'none';
+    document.getElementById('appointmentDate').value = '';
+    document.getElementById('appointmentTime').value = '';
+    document.getElementById('appointmentNotes').value = '';
+    page1.classList.add('active');
+    page2.classList.remove('active');
+    page3.classList.remove('active');
+}
+
+    </script>
+</body>
+</html>

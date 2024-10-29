@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN LOGIN</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        body{
+            background-color: whitesmoke;
+        }
+        .admin{
+            margin-top: 50px;
+        }
+
+        .icon img {
+            background-color: transparent;
+      position: absolute;
+      max-width: 20%;
+      margin-top: -23px;
+      margin-left: 51%;
+    }
+        
+        .pic img{
+            position: absolute;
+            margin-top: 50px;
+            margin-left:500px;
+            height: 25%;
+            width: 30%;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+        }
+
+        .pic h1{
+            position: absolute;
+            font-size: 70px;
+            color: white;
+            opacity: 0.5;
+            margin-top: 100px;
+            margin-left: 600px;
+        }
+
+        .form-container {
+            position: absolute;
+            margin-top: 230px;
+            margin-left: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+            padding: 20px;
+            border-radius: none;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            padding-top: 30px;
+            max-width: 421px;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+
+        label {
+            background-color: transparent;
+            margin: 10px 0 5px;
+            font-weight: bold;
+            text-align: left;
+            width: 80%;
+        }
+
+        input[type="email"], input[type="password"] {
+            background-color: transparent;
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        button {
+            font-weight: bolder;
+            background-color: #bdac8e;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            color: white;
+            border: 2px solid #bdac8e;
+            padding: 15px 100px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: transparent;
+            color: #bdac8e;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="admin">
+        <div class="pic">
+            <img src="/public/uploads/bg.jpg" alt="">
+            <h1>ADMIN</h1>
+        </div>
+    
+        <div class="form">
+            <form class="form-container" method="POST" action="/admin/login"> <!-- Changed to POST method -->
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+          
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+          
+                <button type="submit">LOGIN</button>
+                <% if (typeof error !== 'undefined') { %>
+                    <script>
+                        alert('<%= error %>');
+                    </script>
+                <% } %>
+            </form>
+        </div>
+        <div class="icon">
+            <a href="/login"><img src="/public/uploads/admin.png" alt="Admin Image"></a>
+        </div>
+    </div>
+    <script>
+        async function loginAdmin(username, password) {
+    // Example of a login function
+    const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+    });
+
+    if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('authToken', data.token); // Store the token
+        window.location.href = '/admin'; // Redirect to admin page
+    } else {
+        console.error('Login failed');
+        // Handle login error
+    }
+}
+
+    </script>
+</body>
+</html>
