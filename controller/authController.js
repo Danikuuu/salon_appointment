@@ -165,9 +165,8 @@ exports.isAdminAuthenticated = async (req, res, next) => {
 
         req.admin = admin;
 
-        // Check the role
         if (decoded.role === 'admin') {
-            return next(); // Proceed to admin routes
+            return next(); 
         }
 
         return res.status(403).json({ message: "Access denied." });
