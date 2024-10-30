@@ -6,10 +6,11 @@ const appointmentSchema = new mongoose.Schema({
     service: { type: String, required: true },
     category: { type: String, required: true },
     additional: { type: String },
-    status: { type: String, default: 'pending' },
+    status: { type: String, default: 'for approval' },
     date: { type: Date, required: true },
     time: { type: String, required: true },
-    notes: { type: String }
+    notes: { type: String },
+    createdAt: {type: Date, default: Date.now}
 });
 
 // Create the model

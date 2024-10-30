@@ -65,13 +65,81 @@ exports.displayAdminDashboard = async (req, res) => {
         const totalAppointments = await Appointment.countDocuments();
         const feedbackCount = await Feedback.countDocuments();
         const feedbacksToday = await Feedback.countDocuments({ createdAt: { $gte: new Date(new Date().setHours(0, 0, 0, 0)) } });
-        const appointmentsToday = await Appointment.countDocuments({ date: { $gte: new Date(new Date().setHours(0, 0, 0, 0)) } });
+        
+        // Dates for today
+        const startOfToday = new Date();
+        startOfToday.setHours(0, 0, 0, 0);
+        const endOfToday = new Date();
+        endOfToday.setHours(23, 59, 59, 999);
+
+        // Count appointments and feedbacks for today
+        const appointmentsToday = await Appointment.countDocuments({
+            createdAt: { $gte: startOfToday, $lte: endOfToday }
+        });
+        const feedBackToday = await Feedback.countDocuments({
+            createdAt: { $gte: startOfToday, $lte: endOfToday }
+        });
+
+        // Count appointments and feedbacks for the past week
+        const startOfWeek = new Date();
+        startOfWeek.setDate(startOfWeek.getDate() - 7);
+        
+        const weeklyAppointments = await Appointment.countDocuments({
+            createdAt: { $gte: startOfWeek, $lte: endOfToday }
+        });
+        const weeklyFeedbacks = await Feedback.countDocuments({
+            createdAt: { $gte: startOfWeek, $lte: endOfToday }
+        });
+
+        // Count appointments and feedbacks for the past month
+        const startOfMonth = new Date();
+        startOfMonth.setMonth(startOfMonth.getMonth() - 1);
+        
+        const monthlyAppointments = await Appointment.countDocuments({
+            createdAt: { $gte: startOfMonth, $lte: endOfToday }
+        });
+        const monthlyFeedbacks = await Feedback.countDocuments({
+            createdAt: { $gte: startOfMonth, $lte: endOfToday }
+        });
+
+        // Count appointments and feedbacks for the past year
+        const startOfYear = new Date();
+        startOfYear.setFullYear(startOfYear.getFullYear() - 1);
+        
+        const annualAppointments = await Appointment.countDocuments({
+            createdAt: { $gte: startOfYear, $lte: endOfToday }
+        });
+        const annualFeedbacks = await Feedback.countDocuments({
+            createdAt: { $gte: startOfYear, $lte: endOfToday }
+        });
 
         const appointments = await Appointment.find()
-            .populate('customerId', 'fullName')
+            .populate('customerId', 'fullName email contact address gender')
             .sort({ createdAt: -1 });
 
         const users = await Customer.find();
+
+
+        const serviceCounts = await Appointment.aggregate([
+            {
+                $match: { status: "completed" }  // Filter to include only completed appointments
+            },
+            {
+                $group: {
+                    _id: "$service",              // Group by service name
+                    count: { $sum: 1 }            // Count occurrences
+                }
+            },
+            {
+                $project: {
+                    serviceName: "$_id",         // Rename _id to serviceName
+                    timesAvailed: "$count",      // Rename count to timesAvailed
+                    _id: 0                        // Exclude the default _id field
+                }
+            }
+        ]);
+
+        const feedbacks = await Feedback.find();
 
         res.render('admin', {
             admin: req.admin,
@@ -81,7 +149,18 @@ exports.displayAdminDashboard = async (req, res) => {
             feedbacksToday,
             appointmentsToday,
             appointments,
-            users
+            completedAppointments: appointments.filter(appointment => appointment.status === 'completed'),
+            completedAppointmentsCount: appointments.filter(appointment => appointment.status === 'completed').length,
+            users,
+            feedBackToday,
+            weeklyAppointments,
+            weeklyFeedbacks,
+            monthlyAppointments,
+            monthlyFeedbacks,
+            annualAppointments,
+            annualFeedbacks,
+            serviceCounts,
+            feedbacks
         });
     } catch (error) {
         console.error("Error displaying admin dashboard:", error);
@@ -89,39 +168,165 @@ exports.displayAdminDashboard = async (req, res) => {
     }
 }
 
-exports.getFilteredStats = async (req, res) => {
-    try {
-        const { period } = req.params; // period can be daily, weekly, monthly, annually
 
-        const startDate = new Date();
-        switch (period) {
-            case 'daily':
-                startDate.setDate(startDate.getDate() - 1);
-                break;
-            case 'weekly':
-                startDate.setDate(startDate.getDate() - 7);
-                break;
-            case 'monthly':
-                startDate.setMonth(startDate.getMonth() - 1);
-                break;
-            case 'annually':
-                startDate.setFullYear(startDate.getFullYear() - 1);
-                break;
-            default:
-                return res.status(400).send('Invalid period');
-        }
+const getDateRange = (period) => {
+    const today = new Date();
+    switch (period) {
+        case 'weekly':
+            return new Date(today.setDate(today.getDate() - 7));
+        case 'monthly':
+            return new Date(today.setMonth(today.getMonth() - 1));
+        case 'annually':
+            return new Date(today.setFullYear(today.getFullYear() - 1));
+        default: // 'daily'
+            return new Date(today.setHours(0, 0, 0, 0));
+    }
+};
+
+exports.getStats = async (req, res) => {
+    try {
+        const { period } = req.params;
+        const startDate = getDateRange(period);
 
         const totalUsers = await Customer.countDocuments();
-        const totalAppointments = await Appointment.countDocuments({ createdAt: { $gte: startDate } });
+        const totalAppointments = await Appointment.countDocuments();
         const feedbackCount = await Feedback.countDocuments({ createdAt: { $gte: startDate } });
 
         res.json({
             totalUsers,
             totalAppointments,
-            feedbackCount
+            feedbackCount,
         });
     } catch (error) {
-        console.error("Error getting filtered stats:", error);
-        res.status(500).send('Internal Server Error');
+        console.error("Error fetching stats:", error);
+        res.status(500).send('Error fetching data');
     }
 };
+
+
+exports.displayReports = async(req, res) => {
+    try {
+        const appointments = await Appointment.find()
+
+        res.render('reports', { appointments, admin: req.admin });
+    } catch {
+        return res.status(404, {message: error});
+    }
+}
+
+exports.updateBooking = async (req, res) => {
+    try {
+        const appointmentId = req.body.appointmentId;
+        const { rescheduleDate, rescheduleTime, rescheduleNotes } = req.body;
+
+        console.log(appointmentId)
+        const appointment = await Appointment.findById(appointmentId);
+
+        if (!appointment) {
+            return res.status(404).json({ message: 'Appointment not found' });
+        }
+
+        appointment.status = 'approved';
+        appointment.date = new Date(rescheduleDate);
+        appointment.time = rescheduleTime;
+        appointment.notes = rescheduleNotes;
+
+        await appointment.save();
+
+        req.session.success = 'Appointment updated successfully';
+
+        res.redirect('/admin/dashboard');
+    } catch (error) {
+        console.error("Error updating booking:", error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+exports.deleteBooking = async (req, res) => {
+    try {
+        const appointmentId = req.params.id;
+        const appointment = await Appointment.findById(appointmentId);
+
+        if (!appointment) {
+            return res.status(404).json({ message: 'Appointment not found' });
+        }
+
+            // Admin can delete any appointment
+            await Appointment.findByIdAndDelete(appointmentId);
+            req.session.success = 'Appointment deleted successfully';
+            res.redirect('/admin/dashboard');
+    } catch (error) {
+        console.error("Error deleting booking:", error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+exports.approveBooking = async(req,res) => {
+    try {
+        const appointmentId = req.params.id;
+
+        const appointment = await Appointment.findById(appointmentId);
+
+        if (!appointment) {
+            return res.status(404).json({ message: 'Appointment not found' });
+        }
+
+        appointment.status = 'approved';
+
+        await appointment.save();
+
+        req.session.success = 'Appointment approved successfully';
+
+        res.redirect('/admin/dashboard');
+    } catch (error) {
+        console.error("Error approving booking:", error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+exports.completeBooking = async(req, res) => {
+    try {
+        const appointmentId = req.params.id;
+        console.log("Appointment ID:", appointmentId); // Debugging output
+
+        const appointment = await Appointment.findById(appointmentId);
+
+        if (!appointment) {
+            console.log("Appointment not found"); // Debugging output
+            return res.status(404).json({ message: 'Appointment not found' });
+        }
+
+        console.log("Current status:", appointment.status); // Debugging output
+        appointment.status = 'completed';
+        await appointment.save();
+
+        req.session.success = 'Appointment completed successfully';
+        res.redirect('/admin/dashboard');
+    } catch (error) {
+        console.error("Error completing booking:", error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+exports.addBooking = async(req,res) => {
+    try {
+        const { customerId, service, category, additional, appointmentDate, appointmentTime, appointmentNotes } = req.body;
+
+        const appointment = new Appointment({
+            customerId,
+            service, 
+            category,
+            additional, 
+            date: new Date(appointmentDate), 
+            time: appointmentTime, 
+            notes: appointmentNotes,
+        });
+
+        await appointment.save();
+        req.session.success = 'Appointment created successfully';
+        res.redirect('/admin/dashboard');
+    } catch (error) {
+        console.error("Error creating booking:", error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+}

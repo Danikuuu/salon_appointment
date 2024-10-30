@@ -213,7 +213,7 @@
             </div>
             <ul>
                 <li><a href="#" onclick="document.getElementById('file-input').click();"><i class="fas fa-camera"></i> Choose Profile Picture</a></li>
-                <li><a href="home.html" onclick="showSection('home')"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="/customer/home" onclick="showSection('home')"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="#" onclick="showSection('profile')"><i class="fas fa-user-circle"></i> Profile</a></li>
                 <li><a href="#" onclick="showSection('appointments')"><i class="fas fa-calendar-check"></i> My Appointments</a></li>
                 <li><a href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
@@ -353,7 +353,7 @@ button:hover {
                                 <td><%= appointment.date.toDateString() %></td>
                                 <td><%= appointment.time %></td>
                                 <td><%= appointment.notes %></td>
-                                <td>
+                                <td style="display: flex;gap: 10px;">
                                     <button onclick="rescheduleAppointment('<%= appointment._id %>', '<%= appointment.date.toISOString() %>', '<%= appointment.time %>', '<%= appointment.notes %>', '<%= appointment._id %>')">Reschedule</button>
                                     <form action="/customer/delete-appointment/<%= appointment._id %>" method="post">
                                         <button type="submit">Cancel</button>

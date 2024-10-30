@@ -3325,20 +3325,7 @@ box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
                     <option value="">--Select Service--</option>
                     <option value="brows">EyeBrows</option>
                     <option value="makeup">Semi Permanent Makeup</option>
-                    <option value="facial">Facial Treatment</option>
-                    <option value="pico-laser">Black Doll/Pico Laser</option>
-                    <option value="gluta">Glutathiones</option>
-                    <option value="wax">Waxing</option>
-                    <option value="laser">Hair Laser</option>
-                    <option value="bleaching">Body Bleaching</option>
-                    <option value="scrub">Scrub</option>
-                    <option value="body-shaping">Body Shaping</option>
-                    <option value="hand-care">Hand Care</option>
-                    <option value="foot-care">Foot Care</option>
-                    <option value="eyelash">Eyelash</option>
-                    <option value="threading">Threading</option> 
-                    <option value="package1">Black Doll Peel Package</option> 
-                    <option value="package2">Contour Face and Body Package</option>
+                    <!-- Other options here -->
                 </select>
 
                 <label for="categoryDropdown" id="categoryLabel" style="display: none;">Select Category:</label>
@@ -3381,6 +3368,41 @@ box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         </form>
     </div>
 </div>
+
+<script>
+    // Show the booking summary on the final page
+    document.getElementById('nextToPage4').addEventListener('click', function() {
+        const userName = document.getElementById('userName').value;
+        const userEmail = document.getElementById('userEmail').value;
+        const userAddress = document.getElementById('userAddress').value;
+        const userContact = document.getElementById('userContact').value;
+        const service = document.getElementById('serviceDropdown').value;
+        const category = document.getElementById('categoryDropdown').value;
+        const additional = document.getElementById('additionalDropdown').value;
+        const appointmentDate = document.getElementById('appointmentDate').value;
+        const appointmentTime = document.getElementById('appointmentTime').value;
+        const appointmentNotes = document.getElementById('appointmentNotes').value;
+
+        // Populate the summary div
+        const summaryHtml = `
+            <p><strong>Name:</strong> ${userName}</p>
+            <p><strong>Email:</strong> ${userEmail}</p>
+            <p><strong>Address:</strong> ${userAddress}</p>
+            <p><strong>Contact:</strong> ${userContact}</p>
+            <p><strong>Service:</strong> ${service}</p>
+            <p><strong>Category:</strong> ${category || 'N/A'}</p>
+            <p><strong>Additional:</strong> ${additional || 'N/A'}</p>
+            <p><strong>Appointment Date:</strong> ${appointmentDate}</p>
+            <p><strong>Appointment Time:</strong> ${appointmentTime}</p>
+            <p><strong>Notes:</strong> ${appointmentNotes || 'None'}</p>
+        `;
+        document.getElementById('bookingSummary').innerHTML = summaryHtml;
+    });
+
+    // Show/hide pages and navigation logic
+    // Add event listeners for "Next" and "Back" buttons here
+</script>
+
 
 <% if (success) { %>
     <div id="toast" class="toast"><%= success %></div>

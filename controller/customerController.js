@@ -3,6 +3,7 @@ const admin = require('../model/adminModel')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const Appointment = require('../model/appointmentModel')
+const Feedback = require('../model/feedbackModel');
 
 exports.Home = async (req, res) => {
     res.render('home', { user: req.user });
@@ -110,5 +111,48 @@ exports.updateBooking = async (req, res) => {
     } catch (error) {
         console.error("Error updating booking:", error);
         res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+exports.displayFeedback = async (req, res) => {
+    try{
+
+        const feedbacks = await Feedback.find()
+
+        res.render('feedback', {user: req.user, feedbacks})
+    } catch {
+        res.status(404);
+    }
+};
+
+exports.displayFeedbackForm =  async (req, res) => {
+    try {
+        res.render('feedback-form', {user: req.user});
+    } catch {
+        res.status(404);
+    }
+}
+
+exports.sendFeedback = async (req, res) => {
+    try {
+        const { name, email, rating, message } = req.body;
+
+        if (!name || !email || !rating || !message) {
+            return res.status(400).send('All fields are required');
+        }
+
+        const feedback = new Feedback({
+            name,
+            email,
+            rating,
+            message
+        });
+
+        await feedback.save();
+        
+        res.redirect('/customer/feedback');
+    } catch (error) {
+        console.error('Error saving feedback:', error);
+        res.status(500).send('An error occurred while saving feedback');
     }
 };

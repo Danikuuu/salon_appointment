@@ -318,93 +318,92 @@
 </div>
 <div id="csvServicePreviewModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; border: 1px solid #ccc; padding: 20px; z-index: 1000;">
     <h2>CSV Preview</h2>
-    <pre id="csvServicePreviewContent"></pre>
+    <pre id="csvPreviewContent"></pre>
     <button id="downloadCsv">Download CSV</button>
-    <button id="closeServicePreview">Close</button>
+    <button id="closePreview">Close</button>
 </div>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-    const serviceManagementSection = document.getElementById('service-management');
-    serviceManagementSection.style.display = 'block'; // Show the section
+        const serviceManagementSection = document.getElementById('service-management');
+        serviceManagementSection.style.display = 'block'; // Show the section
 
-    const searchServiceInput = document.getElementById('searchService');
-    const searchServicesButton = document.getElementById('searchServices');
-    const clearServiceSearchButton = document.getElementById('clearServiceSearch');
-    const servicesTableBody = document.querySelector('#servicesTable tbody');
-    const exportServicesButton = document.getElementById('exportServices');
-    const csvServicePreviewModal = document.getElementById('csvServicePreviewModal');
-    const csvServicePreviewContent = document.getElementById('csvServicePreviewContent');
-    const downloadCsvButton = document.getElementById('downloadCsv');
-    const closeServicePreviewButton = document.getElementById('closeServicePreview');
+        const searchServiceInput = document.getElementById('searchService');
+        const searchServicesButton = document.getElementById('searchServices');
+        const clearServiceSearchButton = document.getElementById('clearServiceSearch');
+        const servicesTableBody = document.querySelector('#servicesTable tbody');
+        const exportServicesButton = document.getElementById('exportServices');
+        const csvPreviewModal = document.getElementById('csvServicePreviewModal');
+        const csvPreviewContent = document.getElementById('csvPreviewContent');
+        const downloadCsvButton = document.getElementById('downloadCsv');
+        const closePreviewButton = document.getElementById('closePreview');
 
-    // Search functionality
-    searchServicesButton.addEventListener('click', () => {
-        const searchTerm = searchServiceInput.value.toLowerCase();
-        const rows = servicesTableBody.querySelectorAll('tr');
-        let visibleRowCount = 0;
+        // Search functionality
+        searchServicesButton.addEventListener('click', () => {
+            const searchTerm = searchServiceInput.value.toLowerCase();
+            const rows = servicesTableBody.querySelectorAll('tr');
+            let visibleRowCount = 0;
 
-        rows.forEach(row => {
-            const serviceName = row.cells[0].textContent.toLowerCase();
-            if (serviceName.includes(searchTerm)) {
-                row.style.display = ''; // Show row
-                visibleRowCount++;
-            } else {
-                row.style.display = 'none'; // Hide row
-            }
+            rows.forEach(row => {
+                const serviceName = row.cells[0].textContent.toLowerCase();
+                if (serviceName.includes(searchTerm)) {
+                    row.style.display = ''; // Show row
+                    visibleRowCount++;
+                } else {
+                    row.style.display = 'none'; // Hide row
+                }
+            });
+
+            document.getElementById('serviceCount').textContent = visibleRowCount;
         });
 
-        document.getElementById('serviceCount').textContent = visibleRowCount;
-    });
+        // Clear functionality
+        clearServiceSearchButton.addEventListener('click', () => {
+            searchServiceInput.value = '';
+            const rows = servicesTableBody.querySelectorAll('tr');
 
-    // Clear functionality
-    clearServiceSearchButton.addEventListener('click', () => {
-        searchServiceInput.value = '';
-        const rows = servicesTableBody.querySelectorAll('tr');
+            rows.forEach(row => {
+                row.style.display = ''; // Show all rows
+            });
 
-        rows.forEach(row => {
-            row.style.display = ''; // Show all rows
+            document.getElementById('serviceCount').textContent = rows.length;
         });
 
-        document.getElementById('serviceCount').textContent = rows.length;
-    });
+        // Export to CSV functionality
+        exportServicesButton.addEventListener('click', () => {
+            const rows = servicesTableBody.querySelectorAll('tr');
+            let csvContent = 'Service Name,Times Availed\n'; // CSV header
 
-    // Export to CSV functionality
-    exportServicesButton.addEventListener('click', () => {
-        const rows = servicesTableBody.querySelectorAll('tr');
-        let csvContent = 'Service Name,Times Availed\n'; // CSV header
+            rows.forEach(row => {
+                if (row.style.display !== 'none') { // Only include visible rows
+                    const serviceName = row.cells[0].textContent;
+                    const timesAvailed = row.cells[1].textContent;
+                    csvContent += `${serviceName},${timesAvailed}\n`;
+                }
+            });
 
-        rows.forEach(row => {
-            if (row.style.display !== 'none') { // Only include visible rows
-                const serviceName = row.cells[0].textContent;
-                const timesAvailed = row.cells[1].textContent;
-                csvContent += `${serviceName},${timesAvailed}\n`;
-            }
+            // Display CSV preview
+            csvPreviewContent.textContent = csvContent; // Set preview content
+            csvPreviewModal.style.display = 'block'; // Show modal
         });
 
-        // Display CSV preview
-        csvServicePreviewContent.textContent = csvContent; // Set preview content
-        csvServicePreviewModal.style.display = 'block'; // Show modal
-    });
+        // Download CSV functionality
+        downloadCsvButton.addEventListener('click', () => {
+            const blob = new Blob([csvPreviewContent.textContent], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.setAttribute('href', url);
+            link.setAttribute('download', 'services_report.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        });
 
-    // Download CSV functionality
-    downloadCsvButton.addEventListener('click', () => {
-        const blob = new Blob([csvServicePreviewContent.textContent], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        const url = URL.createObjectURL(blob);
-        link.setAttribute('href', url);
-        link.setAttribute('download', 'services_report.csv');
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        // Close preview modal
+        closePreviewButton.addEventListener('click', () => {
+            csvPreviewModal.style.display = 'none'; // Hide modal
+        });
     });
-
-    // Close preview modal
-    closeServicePreviewButton.addEventListener('click', () => {
-        csvServicePreviewModal.style.display = 'none'; // Hide modal
-    });
-});
-
 </script>
 
 
@@ -553,127 +552,72 @@
     color: #333;
 }
     </style>
-<div id="appointments" class="section" style="display:none;">
-    <div>
-        <div class="container">
-            <h1>Appointment Reports</h1>
-            <!-- Actions and Search functionality -->
-            <div class="actions">
-                <!-- Search Bar -->
-                <div>
-                    <input type="text" id="searchQuery" placeholder="Search...">
-                    <button id="searchAppointments">Search</button>
-                    <button id="clearSearch">Clear</button>
-                </div>
-                <!-- Date Filter -->
-                <div>
-                    <input type="date" id="startDate" required>
-                    <button id="filterAppointments">Filter</button>
-                    <button id="clearFilters">Clear</button>
-                </div>
-                <!-- Export to CSV -->
-                <div>
-                    <button id="exportAppointments">Export to CSV</button>
-                </div>
-            </div>
-            
-            <!-- Appointments Table -->
-            <div>
-                <div class="appointments-header">
-                    <h2>All Appointments</h2>
-                    <div class="total-appointments">
-                        Total Appointments: <span id="appointmentCount"><%= completedAppointmentsCount %></span>
+    <div id="appointments" class="section" style="display:none;">
+        <div>
+            <div class="container">
+                <h1>Appointment Reports</h1>
+                
+                <div class="actions">
+                    <div>
+                        <input type="text" id="searchQuery" placeholder="Search...">
+                        <button id="searchAppointments">Search</button>
+                        <button id="clearSearch">Clear</button>
                     </div>
-                </div> 
-                <table id="appointmentsTable">
-                    <thead>
-                        <tr>
-                            <th>Full Name</th>
-                            <th>Email</th>
-                            <th>Address</th>
-                            <th>Contact</th>
-                            <th>Gender</th>
-                            <th>Service</th>
-                            <th>Appointment Date</th>
-                            <th>Appointment Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% completedAppointments.forEach(appointment => { %>
+                    <div>
+                        <input type="date" id="startDate" required>
+                        <button id="filterAppointments">Filter</button>
+                        <button id="clearFilters">Clear</button>
+                    </div>
+                    <div>
+                        <button id="exportAppointments">Export to CSV</button>
+                    </div>
+                </div>
+        
+                <div>
+                    <div class="appointments-header">
+                        <h2>All Appointments</h2>
+                        <div class="total-appointments">
+                            Total Appointments: <span id="appointmentCount"><%= completedAppointmentsCount %></span>
+                        </div>
+                    </div> 
+                    <table id="appointmentsTable">
+                        <thead>
                             <tr>
-                                <td><%= appointment.customerId.fullName %></td> 
-                                <td><%= appointment.customerId.email %></td>
-                                <td><%= appointment.customerId.address %></td>
-                                <td><%= appointment.customerId.contact %></td>
-                                <td><%= appointment.customerId.gender %></td>
-                                <td><%= appointment.service %></td>
-                                <td><%= appointment.date.toDateString() %></td>
-                                <td><%= appointment.time %></td>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Address</th>
+                                <th>Contact</th>
+                                <th>Gender</th>
+                                <th>Service</th>
+                                <th>Appointment Date</th>
+                                <th>Appointment Time</th>
                             </tr>
-                        <% }) %>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <% completedAppointments.forEach(appointment => { %>
+                                <tr>
+                                    <td><%= appointment.customerId.fullName %></td> 
+                                    <td><%= appointment.customerId.email %></td>
+                                    <td><%= appointment.customerId.address %></td>
+                                    <td><%= appointment.customerId.contact %></td>
+                                    <td><%= appointment.customerId.gender %></td>
+                                    <td><%= appointment.service %></td>
+                                    <td><%= appointment.date.toDateString() %></td>
+                                    <td><%= appointment.time %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<!-- Appointment CSV Preview Modal with unique IDs -->
-<div id="csvAppointmentPreviewModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; border: 1px solid #ccc; padding: 20px; z-index: 1000;">
-    <h2>CSV Preview</h2>
-    <pre id="csvAppointmentPreviewContent"></pre>
-    <button id="downloadAppointmentsCsv">Download CSV</button>
-    <button id="closeAppointmentsPreview">Close</button>
-</div>
-
-<script>
-    function generateAppointmentCSVContent() {
-        const rows = document.querySelectorAll('#appointmentsTable tr');
-        const csvContent = [];
-
-        rows.forEach(row => {
-            const cols = row.querySelectorAll('td, th');
-            const rowData = [];
-            cols.forEach(col => {
-                let text = col.innerText.replace(/"/g, '""');
-                rowData.push(`"${text}"`);
-            });
-            csvContent.push(rowData.join(','));
-        });
-
-        return csvContent.join('\n');
-    }
-
-    function showAppointmentCsvPreview() {
-        const csvContent = generateAppointmentCSVContent();
-        document.getElementById('csvAppointmentPreviewContent').textContent = csvContent;
-        document.getElementById('csvAppointmentPreviewModal').style.display = 'block';
-    }
-
-    function downloadAppointmentCSV(filename) {
-        const csvContent = generateAppointmentCSVContent();
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-        const url = URL.createObjectURL(blob);
-
-        const link = document.createElement('a');
-        link.setAttribute('href', url);
-        link.setAttribute('download', filename);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }
-
-    // Add event listeners for Appointments CSV functionality
-    document.getElementById('exportAppointments').addEventListener('click', showAppointmentCsvPreview);
-    document.getElementById('downloadAppointmentsCsv').addEventListener('click', function() {
-        downloadAppointmentCSV('appointments.csv');
-        document.getElementById('csvAppointmentPreviewModal').style.display = 'none';
-    });
-    document.getElementById('closeAppointmentsPreview').addEventListener('click', function() {
-        document.getElementById('csvAppointmentPreviewModal').style.display = 'none';
-    });
-</script>
-
+    <div id="csvPreviewModal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; border: 1px solid #ccc; padding: 20px; z-index: 1000;">
+        <h2>CSV Preview</h2>
+        <pre id="csvPreviewContent"></pre>
+        <button id="downloadCsv">Download CSV</button>
+        <button id="closePreview">Close</button>
+    </div>
     <script>
         // Function to filter appointments based on search query
         function filterAppointments() {
@@ -816,7 +760,7 @@
                         <th>Date</th>
                         <th>Time</th>
                         <th>Notes</th>
-                        <th>Actions</th>
+                        <th>Actions</th> <!-- New column for action buttons -->
                     </tr>
                 </thead>
                 <tbody>
@@ -1321,4 +1265,4 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>y
+</html>

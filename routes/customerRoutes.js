@@ -15,4 +15,9 @@ router.post('/delete-appointment/:id', authController.isAuthenticated, customerC
 
 router.post('/reschedule-appointment', authController.isAuthenticated, customerController.updateBooking)
 
+router.get('/feedback', authController.isAuthenticated, customerController.displayFeedback)
+
+router.get('/display-feedback-form', authController.isAuthenticated, customerController.displayFeedbackForm)
+
+router.post('/add-feedback', authController.isAuthenticated, customerController.sendFeedback)
 module.exports = router;
