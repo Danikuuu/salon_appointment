@@ -135,6 +135,18 @@
 <!-- Main Content -->
 <div class="content">
     <!-- Dashboard Section -->
+     <style>
+        .chart-container {
+    width: 40%; /* Adjust as needed to make it smaller */
+    margin: 0 auto;
+}
+
+#combinedChart,
+#appointmentStatusChart {
+    max-width: 100%; /* Ensure it doesn't exceed container */
+    height: 200px; /* Adjust as necessary */
+}
+     </style>
     <div id="dashboard" class="section active">
         <div class="container">
             <h1 class="my-4">Admin Dashboard</h1>
@@ -1242,14 +1254,14 @@
         const appointmentStatusChart = new Chart(appointmentStatusCtx, {
             type: 'doughnut',
             data: {
-                labels: ['Pending', 'For Approval', 'Completed'],
+                labels: ['For Approval', 'Completed'],
                 datasets: [{
                     label: 'Appointment Status Distribution',
                     data: [0, 0, 0], // Initialize with zero values
                     backgroundColor: [
                         'rgba(255, 206, 86, 0.6)',
                         'rgba(255, 99, 132, 0.6)',
-                        'rgba(54, 162, 235, 0.6)'
+
                     ],
                 }]
             },
