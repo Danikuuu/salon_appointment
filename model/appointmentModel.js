@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const appointmentSchema = new mongoose.Schema({
     customerId: { type: mongoose.Schema.Types.ObjectId, ref: 'Customer', required: true },
     service: { type: String, required: true },
-    category: { type: String, required: true },
+    category: { type: String },
     additional: { type: String },
     status: { type: String, default: 'for approval' },
     date: { type: Date, required: true },

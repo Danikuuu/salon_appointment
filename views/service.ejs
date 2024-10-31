@@ -3321,11 +3321,24 @@ box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
                 <p>Select a service and category.</p>
 
                 <label for="serviceDropdown">Select Service:</label>
-                <select id="serviceDropdown" name="service" required>
+                <select id="serviceDropdown" name="service" required >
                     <option value="">--Select Service--</option>
                     <option value="brows">EyeBrows</option>
                     <option value="makeup">Semi Permanent Makeup</option>
-                    <!-- Other options here -->
+                    <option value="facial">Facial Treatment</option>
+                    <option value="pico-laser">Black Doll/Pico Laser</option>
+                    <option value="gluta">Glutathiones</option>
+                    <option value="wax">Waxing</option>
+                    <option value="laser">Hair Laser</option>
+                    <option value="bleaching">Body Bleaching</option>
+                    <option value="scrub">Scrub</option>
+                    <option value="body-shaping">Body Shaping</option>
+                    <option value="hand-care">Hand Care</option>
+                    <option value="foot-care">Foot Care</option>
+                    <option value="eyelash">Eyelash</option>
+                    <option value="threading">Threading</option> 
+                    <option value="package1">Black Doll Peel Package</option> 
+                    <option value="package2">Contour Face and Body Package</option>
                 </select>
 
                 <label for="categoryDropdown" id="categoryLabel" style="display: none;">Select Category:</label>
@@ -3368,8 +3381,132 @@ box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
         </form>
     </div>
 </div>
-
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const pages = document.querySelectorAll('.modal-page'); // Get all modal pages
+        const nextToPage2 = document.getElementById('nextToPage2');
+        const nextToPage3 = document.getElementById('nextToPage3');
+        const nextToPage4 = document.getElementById('nextToPage4');
+        const backToPage1 = document.getElementById('backToPage1');
+        const backToPage2 = document.getElementById('backToPage2');
+        const backToPage3 = document.getElementById('backToPage3');
+
+        // Function to update booking summary
+        function updateBookingSummary() {
+            const summaryDiv = document.getElementById("bookingSummary");
+            const userName = document.getElementById("userName").value;
+            const userEmail = document.getElementById("userEmail").value;
+            const userAddress = document.getElementById("userAddress").value;
+            const userContact = document.getElementById("userContact").value;
+            const service = document.getElementById("serviceDropdown").value;
+            const appointmentDate = document.getElementById("appointmentDate").value;
+            const appointmentTime = document.getElementById("appointmentTime").value;
+            const notes = document.getElementById("appointmentNotes").value;
+
+            summaryDiv.innerHTML = `
+                <h3 style="color: #5c3a25;">Booking Details</h3>
+                <p><strong>Name:</strong> ${userName}</p>
+                <p><strong>Email:</strong> ${userEmail}</p>
+                <p><strong>Address:</strong> ${userAddress}</p>
+                <p><strong>Contact:</strong> ${userContact}</p>
+                <p><strong>Service:</strong> ${service}</p>
+                <p><strong>Appointment Date:</strong> ${appointmentDate}</p>
+                <p><strong>Appointment Time:</strong> ${appointmentTime}</p>
+                <p><strong>Notes:</strong> ${notes}</p>
+            `;
+        }
+
+        serviceDropdown.addEventListener('change', function() {
+            const selectedService = this.value;
+        
+            if (selectedService) {
+                categoryDropdown.innerHTML = '<option value="">--Select Category--</option>';
+                categories[selectedService].forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category;
+                    option.textContent = category;
+                    categoryDropdown.appendChild(option);
+                });
+        
+                categoryDropdown.style.display = 'block';
+                categoryLabel.style.display = 'block';
+                additionalDropdown.style.display = 'none';
+                additionalLabel.style.display = 'none';
+            } else {
+                categoryDropdown.style.display = 'none';
+                categoryLabel.style.display = 'none';
+                additionalDropdown.style.display = 'none';
+                additionalLabel.style.display = 'none';
+            }
+        });
+        
+        // Update additional dropdown based on category selection
+        categoryDropdown.addEventListener('change', function() {
+            const selectedCategory = this.value;
+        
+            // Gluta category additional options
+            if (["Premium Gluta Push - P850", "Ultimate Gluta Drip - P1,999", "Radiant Gluta Drip - P1,400"].includes(selectedCategory)) {
+              additionalLabel.style.display = 'block';
+              additionalDropdown.style.display = 'block';
+              additionalDropdown.innerHTML = `
+                  <option value="">--Select Additional--</option>
+                  <option value="add-on1">Ultimate Gluta Drip - P1,999</option>
+                  <option value="add-on2">Radiant Gluta Drip - P1,400</option>
+                  <option value="add-on3">Premium Gluta Push - P850</option>
+              `;
+          } 
+          // Facial category additional options
+          else if (["Deep Facial Cleaning - P300", "Facial Cleaning with Treatment - P500", "Facial With Diamond Peel - P650"].includes(selectedCategory)) {
+              additionalLabel.style.display = 'block';
+              additionalDropdown.style.display = 'block';
+              additionalDropdown.innerHTML = `
+                  <option value="">--Select Facial Treatment--</option>
+                  <option value="pdt">PDT Mask - P20</option>
+                  <option value="mask">Treatment Mask - P200</option>
+                  <option value="erum">Serum Booster - P200</option>
+              `;
+            } else {
+                additionalLabel.style.display = 'none';
+                additionalDropdown.style.display = 'none';
+            }
+        });
+        
+   
+
+        // Navigation between pages
+        nextToPage2.addEventListener("click", () => {
+            pages[0].style.display = "none"; // Hide Page 1
+            pages[1].style.display = "block"; // Show Page 2
+        });
+
+        nextToPage3.addEventListener("click", () => {
+            pages[1].style.display = "none"; // Hide Page 2
+            pages[2].style.display = "block"; // Show Page 3
+        });
+
+        backToPage1.addEventListener("click", () => {
+            pages[0].style.display = "block"; // Show Page 1
+            pages[1].style.display = "none"; // Hide Page 2
+        });
+
+        backToPage2.addEventListener("click", () => {
+            pages[1].style.display = "block"; // Show Page 2
+            pages[2].style.display = "none"; // Hide Page 3
+        });
+
+        nextToPage4.addEventListener("click", () => {
+            pages[2].style.display = "none"; // Hide Page 3
+            pages[3].style.display = "block"; // Show Page 4
+            updateBookingSummary(); // Update the booking summary
+        });
+
+        backToPage3.addEventListener("click", () => {
+            pages[2].style.display = "block"; // Show Page 3
+            pages[3].style.display = "none"; // Hide Page 4
+        });
+    });
+</script>
+<!-- <script>
     // Show the booking summary on the final page
     document.getElementById('nextToPage4').addEventListener('click', function() {
         const userName = document.getElementById('userName').value;
@@ -3401,7 +3538,7 @@ box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 
     // Show/hide pages and navigation logic
     // Add event listeners for "Next" and "Back" buttons here
-</script>
+</script> -->
 
 
 <% if (success) { %>
@@ -3470,7 +3607,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         
     } catch (error) {
         console.error("Error loading page1 data:", error);
-        alert("HELLO!");
     }
 });
 

@@ -10,7 +10,7 @@ exports.Home = async (req, res) => {
 };
 
 exports.Service = async (req, res) => {
-    const success = req.session.success || null;
+    const success = null;
     req.session.success = null;
     res.render('service', { user: req.user, success });
 };

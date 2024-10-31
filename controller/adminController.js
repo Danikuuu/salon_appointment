@@ -311,7 +311,7 @@ exports.completeBooking = async(req, res) => {
 exports.addBooking = async(req,res) => {
     try {
         const { customerId, service, category, additional, appointmentDate, appointmentTime, appointmentNotes } = req.body;
-
+        console.log(req.body);
         const appointment = new Appointment({
             customerId,
             service, 
